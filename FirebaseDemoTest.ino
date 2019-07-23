@@ -29,7 +29,7 @@
 
 // Set these to run example.
 #define FIREBASE_HOST "lazershotkmitl.firebaseio.com"
-#define FIREBASE_AUTH "WtyRAjhqskV3djoq92VaEXonzMTjri9pV0FKUxXH"
+#define FIREBASE_AUTH **********************************
 #define WIFI_SSID "Pond"
 #define WIFI_PASSWORD "pond2000"
 
