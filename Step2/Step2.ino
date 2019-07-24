@@ -31,8 +31,8 @@
 // Set these to run example.
 #define FIREBASE_HOST "lazershotkmitl.firebaseio.com"
 #define FIREBASE_AUTH "WtyRAjhqskV3djoq92VaEXonzMTjri9pV0FKUxXH"
-#define WIFI_SSID "Pond"
-#define WIFI_PASSWORD "pond2000"
+#define WIFI_SSID "DOUBLE_R0"
+#define WIFI_PASSWORD "Dr20436527"
 void setup() {
   Serial.begin(9600);
 
@@ -66,14 +66,20 @@ void loop() {
   order = Firebase.getInt("number");
   if(order==1){
     Serial.println("get it");
-    Gameplay();
+    Gameplay2();
   }
 }
-void Gameplay(){
+int Gameplay(){
     randomNum = random(1, 4);
     if(randomNum==1){
       digitalWrite(D3, 1);
       while(1){
+      if(Time%2!=0){
+        digitalWrite(D3, 0);
+      }
+      else if(Time%2==0){
+        digitalWrite(D3, 1);
+      }
       if(digitalRead(D0)==1){
         score++;
         break;
@@ -90,6 +96,12 @@ void Gameplay(){
     else if(randomNum==2){
       digitalWrite(D4, 1);
       while(1){
+      if(Time%2!=0){
+        digitalWrite(D4, 0);
+      }
+      else if(Time%2==0){
+        digitalWrite(D4, 1);
+      }
       if(digitalRead(D1)==1){
         score++;
         break;
@@ -106,6 +118,12 @@ void Gameplay(){
     else if(randomNum==3){
       digitalWrite(D5, 1);
       while(1){
+      if(Time%2!=0){
+        digitalWrite(D5, 0);
+      }
+      else if(Time%2==0){
+        digitalWrite(D5, 1);
+      }
       if(digitalRead(D2)==1){
         score++;
         break;
@@ -118,6 +136,96 @@ void Gameplay(){
       }
       Time=0;
       digitalWrite(D5, 0);
+    }
+    Serial.println(score);
+}
+void Gameplay2(){
+  int i, arr[2];
+  for(i=0; i<2; i++){
+    arr[i] = random(1, 4);
+  }
+  if(arr[0]==arr[1]){
+    Gameplay();
+  }
+  else{
+     if((arr[0]==1&&arr[1]==2)||(arr[0]==2&&arr[1]==1)){
+      digitalWrite(D3, 1);
+      digitalWrite(D4, 1);
+      while(1){
+      if(Time%2!=0){
+        digitalWrite(D3, 0);
+        digitalWrite(D4, 0);
+      }
+      else if(Time%2==0){
+        digitalWrite(D3, 1);
+        digitalWrite(D4, 1);
+      }
+      if(digitalRead(D0)==1){
+        score++;
+        break;
+      }
+      else if(Time==5){
+        break;
+      }
+      delay(1000);
+      Time++;
+      }
+      Time=0;
+      digitalWrite(D3, 0);
+      digitalWrite(D4, 0);
+      }
+     else if((arr[0]==1&&arr[1]==3)||(arr[0]==3&&arr[1]==1)){
+      digitalWrite(D3, 1);
+      digitalWrite(D5, 1);
+      while(1){
+      if(Time%2!=0){
+        digitalWrite(D3, 0);
+        digitalWrite(D5, 0);
+      }
+      else if(Time%2==0){
+        digitalWrite(D3, 1);
+        digitalWrite(D5, 1);
+      }
+      if(digitalRead(D0)==1){
+        score++;
+        break;
+      }
+      else if(Time==5){
+        break;
+      }
+      delay(1000);
+      Time++;
+      }
+      Time=0;
+      digitalWrite(D3, 0);
+      digitalWrite(D5, 0);
+      }
+      else if((arr[0]==2&&arr[1]==3)||(arr[0]==3&&arr[1]==2)){
+      digitalWrite(D4, 1);
+      digitalWrite(D5, 1);
+      while(1){
+      if(Time%2!=0){
+        digitalWrite(D4, 0);
+        digitalWrite(D5, 0);
+      }
+      else if(Time%2==0){
+        digitalWrite(D4, 1);
+        digitalWrite(D5, 1);
+      }
+      if(digitalRead(D0)==1){
+        score++;
+        break;
+      }
+      else if(Time==5){
+        break;
+      }
+      delay(1000);
+      Time++;
+      }
+      Time=0;
+      digitalWrite(D4, 0);
+      digitalWrite(D5, 0);
+      }
     }
     Serial.println(score);
 }
