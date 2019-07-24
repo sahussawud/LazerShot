@@ -31,8 +31,12 @@
 // Set these to run example.
 #define FIREBASE_HOST "lazershotkmitl.firebaseio.com"
 #define FIREBASE_AUTH "WtyRAjhqskV3djoq92VaEXonzMTjri9pV0FKUxXH"
-#define WIFI_SSID "DOUBLE_R0"
-#define WIFI_PASSWORD "Dr20436527"
+/*#define WIFI_SSID "DOUBLE_R0"
+#define WIFI_PASSWORD "Dr20436527"*/
+
+#define WIFI_SSID "kit"
+#define WIFI_PASSWORD "kit314159"
+
 void setup() {
   Serial.begin(9600);
 
@@ -47,24 +51,33 @@ void setup() {
   Serial.print("connected: ");
   Serial.println(WiFi.localIP());
   Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
-  pinMode(D0, INPUT);
-  pinMode(D1, INPUT);
-  pinMode(D2, INPUT);
-  pinMode(D3, OUTPUT);
-  pinMode(D4, OUTPUT);
-  pinMode(D5, OUTPUT);
+
+  
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  
+  while(true){
+    int check = Firebase.getInt("rew");
+    /*if(check == 1){
+      break;
+    }
+    else{
+      Serial.print("Pls wait : ");
+      Serial.println(check);
+    }
+  }*/
+  Serial.println(check);
+  }
   for(int i=1; i<7; i+=1){
+    Firebase.setInt("ran_1", random(1, 5));
+    Firebase.setInt("ran_2", random(1, 5)); 
     Serial.print("Count ");
     Serial.println(i);
-    for(int s=0; s<60; s+=1){
+    Firebase.setInt("count", random(1,4));
+    for(int s=0; s<10; s+=1){   
       Serial.println(s);
       delay(1000);
     }
-    Firebase.setInt("count", 1);
   }
 }
