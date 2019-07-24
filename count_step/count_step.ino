@@ -58,24 +58,23 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   while(true){
-    int check = Firebase.getInt("rew");
-    /*if(check == 1){
+    int check = Firebase.getInt("begin_state");
+    if(check == 1){
       break;
     }
     else{
       Serial.print("Pls wait : ");
       Serial.println(check);
     }
-  }*/
-  Serial.println(check);
   }
+  
   for(int i=1; i<7; i+=1){
     Firebase.setInt("ran_1", random(1, 5));
     Firebase.setInt("ran_2", random(1, 5)); 
     Serial.print("Count ");
     Serial.println(i);
-    Firebase.setInt("count", random(1,4));
-    for(int s=0; s<10; s+=1){   
+    Firebase.setInt("count", i);
+    for(int s=0; s<60; s+=1){   
       Serial.println(s);
       delay(1000);
     }
