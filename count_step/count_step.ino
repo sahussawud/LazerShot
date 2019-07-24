@@ -47,12 +47,6 @@ void setup() {
   Serial.print("connected: ");
   Serial.println(WiFi.localIP());
   Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
-  pinMode(D0, INPUT);
-  pinMode(D1, INPUT);
-  pinMode(D2, INPUT);
-  pinMode(D3, OUTPUT);
-  pinMode(D4, OUTPUT);
-  pinMode(D5, OUTPUT);
 }
 
 void loop() {
@@ -61,10 +55,10 @@ void loop() {
   for(int i=1; i<7; i+=1){
     Serial.print("Count ");
     Serial.println(i);
-    for(int s=0; s<60; s+=1){
+    for(int s=0; s<10; s+=1){
       Serial.println(s);
       delay(1000);
     }
-    Firebase.setInt("count", 1);
+    Firebase.setInt("count", random(1, 3));
   }
 }
