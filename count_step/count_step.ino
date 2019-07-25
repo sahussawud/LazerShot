@@ -70,13 +70,20 @@ void loop() {
   
   for(int i=1; i<7; i+=1){
     Firebase.setInt("ran_1", random(1, 5));
-    Firebase.setInt("ran_2", random(1, 5)); 
+    Firebase.setInt("ran_2", random(1, 5));
+    if(i>=5){
+       Firebase.setInt("ran_3", random(1, 5));
+    }
     Serial.print("Count ");
     Serial.println(i);
     Firebase.setInt("count", i);
-    for(int s=0; s<60; s+=1){   
+    for(int s=0; s<5; s+=1){   
       Serial.println(s);
       delay(1000);
     }
   }
+  Firebase.setInt("count", 0);
+  Firebase.setInt("ran_1", 0);
+  Firebase.setInt("ran_2", 0);
+  Firebase.setInt("ran_3", 0);
 }
