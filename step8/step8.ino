@@ -37,6 +37,8 @@
 #define WIFI_SSID "kit"
 #define WIFI_PASSWORD "kit314159"
 
+int randomNum, i=0, score=0, Time=0;
+
 void setup() {
   Serial.begin(9600);
 
@@ -51,18 +53,12 @@ void setup() {
   Serial.print("connected: ");
   Serial.println(WiFi.localIP());
   Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
-  pinMode(D0, INPUT);
-  pinMode(D1, INPUT);
-  pinMode(D2, INPUT);
-  pinMode(D3, OUTPUT);
-  pinMode(D4, OUTPUT);
-  pinMode(D5, OUTPUT);
+
+  
 }
 
-int randomNum, i=0, score=0, Time=0;
-
 void loop() {
-  // set value
+  // put your main code here, to run repeatedly:
   int order;
   digitalWrite(D3, 0);
   digitalWrite(D4, 0);
@@ -73,6 +69,7 @@ void loop() {
     Gameplay2();
   }
 }
+
 int Gameplay(){
     randomNum = random(1, 4);
     if(randomNum==1){
