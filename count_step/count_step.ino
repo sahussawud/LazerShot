@@ -31,11 +31,11 @@
 // Set these to run example.
 #define FIREBASE_HOST "lazershotkmitl.firebaseio.com"
 #define FIREBASE_AUTH "WtyRAjhqskV3djoq92VaEXonzMTjri9pV0FKUxXH"
-/*#define WIFI_SSID "DOUBLE_R0"
-#define WIFI_PASSWORD "Dr20436527"*/
+#define WIFI_SSID "DOUBLE_R0"
+#define WIFI_PASSWORD "Dr20436527"
 
-#define WIFI_SSID "kit"
-#define WIFI_PASSWORD "kit314159"
+// #define WIFI_SSID "kit"
+// #define WIFI_PASSWORD "kit314159"
 
 void setup() {
   Serial.begin(9600);

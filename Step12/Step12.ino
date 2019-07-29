@@ -93,7 +93,7 @@ void Gameplay(int timeshoot, int timechange){ // ฟังก์ชั่นแ�
         break;
       }
       else if(Time==10){
-        life--; // เมื่อ loop รันครบห้ารอบ พลังชีวิตจะลด และสุ่มหลอดใหม่
+        life++; // เมื่อ loop รันครบห้ารอบ พลังชีวิตจะลด และสุ่มหลอดใหม่
         Firebase.setInt("lifepoint", life); // ส่งค่าพลังชีวิตขึ้น Firebase
         break;
       }
@@ -112,7 +112,7 @@ void Gameplay(int timeshoot, int timechange){ // ฟังก์ชั่นแ�
         break;
       }
       else if(Time==10){
-        life--;
+        life++;
         Firebase.setInt("lifepoint", life);
         break;
       }
@@ -131,7 +131,7 @@ void Gameplay(int timeshoot, int timechange){ // ฟังก์ชั่นแ�
         break;
       }
       else if(Time==10){
-        life--;
+        life++;
         Firebase.setInt("lifepoint", life);
         break;
       }
@@ -171,7 +171,7 @@ void Gameplay2(int timeshoot, int timechange){ // เปิดไฟพร้อ
         digitalWrite(D4, 0);
       }
       else if(Time==10){
-        life--;
+        life++;
         Firebase.setInt("lifepoint", life);
         break;
       }
@@ -202,7 +202,7 @@ void Gameplay2(int timeshoot, int timechange){ // เปิดไฟพร้อ
         digitalWrite(D5, 0);
       }
       else if(Time==10){
-        life--;
+        life++;
         Firebase.setInt("lifepoint", life);
         break;
       }
@@ -233,7 +233,7 @@ void Gameplay2(int timeshoot, int timechange){ // เปิดไฟพร้อ
         digitalWrite(D5, 0);
       }
       else if(Time==10){
-        life--;
+        life++;
         Firebase.setInt("lifepoint", life);
         break;
       }
@@ -278,7 +278,7 @@ void Gameplay3(int timeshoot, int timechange){ // เปิดทีละ 3 ห
         digitalWrite(D4, 0);
       }
       if(stax>=3){
-        life--;
+        life++;
         Firebase.setInt("lifepoint", life);
         break;
       }
@@ -313,7 +313,7 @@ void Gameplay3(int timeshoot, int timechange){ // เปิดทีละ 3 ห
         break;
       }
       else if(Time==10){
-        life--;
+        life++;
         Firebase.setInt("lifepoint", life);
         break;
       }
@@ -344,7 +344,7 @@ void Gameplay3(int timeshoot, int timechange){ // เปิดทีละ 3 ห
         break;
       }
       else if(Time==10){
-        life--;
+        life++;
         Firebase.setInt("lifepoint", life);
         break;
       }
@@ -375,7 +375,7 @@ void Gameplay3(int timeshoot, int timechange){ // เปิดทีละ 3 ห
         break;
       }
       else if(Time==10){
-        life--;
+        life++;
         Firebase.setInt("lifepoint", life);
         break;
       }
