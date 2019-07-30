@@ -36,8 +36,13 @@ int score_1, score_2, score_3, score_4, censcore=0, life=0;
 #define WIFI_SSID "DOUBLE_R0"
 #define WIFI_PASSWORD "Dr20436527"
 
+<<<<<<< HEAD
 /*#define WIFI_SSID "kit"
 #define WIFI_PASSWORD "kit314159"*/
+=======
+// #define WIFI_SSID "kit"
+// #define WIFI_PASSWORD "kit314159"
+>>>>>>> be804d5762bc0b513a523e8af583780c822577cc
 
 void setup() {
   Serial.begin(9600);
