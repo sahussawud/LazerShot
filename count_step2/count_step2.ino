@@ -36,8 +36,8 @@ int score_1, score_2, score_3, score_4, censcore=0, life=0;
 #define WIFI_SSID "DOUBLE_R0"
 #define WIFI_PASSWORD "Dr20436527"
 
-/*#define WIFI_SSID "kit"
-#define WIFI_PASSWORD "kit314159"*/
+//#define WIFI_SSID "kit"
+//#define WIFI_PASSWORD "kit314159"
 
 void setup() {
   Serial.begin(9600);
@@ -71,8 +71,8 @@ void loop() {
   }
   //run time
   for(int i=1; i<7; i+=1){
-    Firebase.setInt("ran_1", random(1, 3));
-    Firebase.setInt("ran_2", random(1, 3));
+    Firebase.setInt("ran/ran_1", random(1, 3));
+    Firebase.setInt("ran/ran_2", random(1, 3));
     Firebase.setInt("ran/ran_3", random(1, 3));
     if(i>=5){
        Firebase.setInt("ran_3", random(1, 3));
