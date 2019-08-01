@@ -36,8 +36,8 @@ int score_1, score_2, score_3, score_4, censcore=0, life=0;
 #define WIFI_SSID "DOUBLE_R0"
 #define WIFI_PASSWORD "Dr20436527"
 
-//#define WIFI_SSID "kit"
-//#define WIFI_PASSWORD "kit314159"
+//#define WIFI_SSID "DOUBLE_R0"
+//#define WIFI_PASSWORD "Dr20436527"
 
 void setup() {
   Serial.begin(9600);
@@ -84,6 +84,11 @@ void loop() {
       //check lifepoint realtime
       if(Firebase.getInt("lifepoint")==100){
          Firebase.setInt("count", 0);
+         Firebase.setInt("begin_state", 0);
+         Firebase.setInt("lifepoint", 0);
+         String key = Firebase.getString("latest_key/key");
+         int score = Firebase.getInt("score/censcore");
+         Firebase.setInt("users/"+key+"/score", score);
       }
       //test 
       Serial.println(s);

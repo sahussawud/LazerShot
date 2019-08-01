@@ -50,18 +50,20 @@ void loop() {
   digitalWrite(D5, 0);
   // ดึงข้อมูลจาก Firebase
   life = Firebase.getInt("lifepoint");
-  order = Firebase.getInt("ran_1");
-  order2 = Firebase.getInt("ran_2");
-  order3 = Firebase.getInt("ran_3");
-  counter = Firebase.getInt("count");
+  order = Firebase.getInt("ran/ran_1");
+  order2 = Firebase.getInt("ran/ran_2");
+  order3 = Firebase.getInt("ran/ran_3");
   // เช้คว่าค่าที่ส่งมาทาง order ตรงกับ เลขบอร์ดของตัวเองรึป่าว
-  if(order==4||order2==4||order3==4){
+  counter = Firebase.getInt("count");
+  if(order==1||order2==1||order3==1){
     digitalWrite(D6, 1);
     delay(500);
     digitalWrite(D6, 0);
     Serial.println("get it");
     if(counter==0){
-      Firebase.setInt("score1", score); // จบเกมและส่งคะแนน
+      Firebase.setInt("score/score_1", score); // จบเกมและส่งคะแนน
+      Firebase.setInt("lifepoint", 0); // จบเกมและส่งlife
+      score = 0; // รีเซ็ตคะแนน
     }
     else if(counter==1){
       Gameplay(timeshoot[0], timechange[0]); // รัน state แรก
