@@ -83,12 +83,16 @@ void loop() {
     for(int s=0; s<5; s+=1){
       //check lifepoint realtime
       if(Firebase.getInt("lifepoint")==100){
-         Firebase.setInt("count", 0);
-         Firebase.setInt("begin_state", 0);
-         Firebase.setInt("lifepoint", 0);
-         String key = Firebase.getString("latest_key/key");
-         int score = Firebase.getInt("score/censcore");
-         Firebase.setInt("users/"+key+"/score", score);
+         Firebase.setInt("count", 0); // ส่ง conut = 0 แปลว่าจบเกม
+         Firebase.setInt("begin_state", 0); // เปลี่ยน ค่าเพื่อรอผู้เล่นใหม่
+         Firebase.setInt("lifepoint", 0); // รีเซ็ตพลังชีวิต
+         String key = Firebase.getString("latest_key/key"); // เอา key ผู้เล่นมา
+           //total score up to firebase
+           censcore += Firebase.getInt("score/score_1");
+           censcore += Firebase.getInt("score/score_2");
+           censcore += Firebase.getInt("score/score_3");
+           censcore += Firebase.getInt("score/score_4");
+           Firebase.setInt("users/"+key+"/score", censcore); // up score to user
       }
       //test 
       Serial.println(s);
@@ -98,13 +102,6 @@ void loop() {
       delay(1000);
     }
   }
-
-  //total score up to firebase
-  censcore += Firebase.getInt("score/score_1");
-  censcore += Firebase.getInt("score/score_2");
-  censcore += Firebase.getInt("score/score_3");
-  censcore += Firebase.getInt("score/score_4");
-  Firebase.setInt("score/censcore", censcore);
 
   //set bact to defult
   Firebase.setInt("ran_1", 0);
