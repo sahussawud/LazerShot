@@ -1,0 +1,28 @@
+*{
+    background-color: black;
+}
+input, button {
+    background-color: white;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+}
+input{
+    width: 30em;
+    height: 3em;
+    text-align: center;
+    font-size: 2em;
+    font-family: 'Anton', sans-serif;
+}
+button{
+    width: 10em;
+    margin-top: 2em;
+    margin-left: 5em; 
+    font-size: 3em;
+    font-family: 'Anton', sans-serif;
+}
+form{
+    margin: 25%;
+    position: relative;
+}

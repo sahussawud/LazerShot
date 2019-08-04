@@ -7,7 +7,7 @@ const query = userinfo.orderByChild("score").limitToLast(100);
 new Vue({
   el:"#rank",
   data:{
-    name:'ken',
+    name:'user',
     rankscore:[],
     score:0,
   },
@@ -16,9 +16,6 @@ new Vue({
       userinfo.push({name:this.name,score:this.score})
     }
   },
-
-
-
   created(){
     userinfo.limitToLast(1).on('child_added', snapshot=>{
       var rankscore = snapshot.val();

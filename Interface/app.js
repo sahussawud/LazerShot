@@ -1,13 +1,13 @@
 //database
 const db = firebase.database();
-const userinfo = db.ref("user");
+const userinfo = db.ref("users");
 const newuser = db.ref("latest_key/key");
 const top100 = db.ref("top100");
 const query = userinfo.orderByChild("score").limitToLast(100);
 new Vue({
   el:"#rank",
   data:{
-    name:'ken',
+    name:'',
     rankscore:[],
     score:0,
   },
