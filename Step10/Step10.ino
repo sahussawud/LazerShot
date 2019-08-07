@@ -57,20 +57,40 @@ void setup() {
 }
 
 int randomNum, i=0, score=0, Time=0;
+int timeshoot[6]={600, 500}, timechange[3]={1000};
+int stax;
 
 void loop() {
   // set value
-  int order;
+  int order, order2, order3, counter, state;
   digitalWrite(D3, 0);
   digitalWrite(D4, 0);
   digitalWrite(D5, 0);
-  order = Firebase.getInt("number");
-  if(order==1){
+  order = Firebase.getInt("ran_1");
+  order2 = Firebase.getInt("ran_2");
+  order3 = Firebase.getInt("ran_3");
+  counter = Firebase.getInt("count");
+  if(order==1||order2==1||order3==1){
     Serial.println("get it");
-    Gameplay2();
+    if(state==0){
+      Gameplay(timeshoot[0], timechange[0]);
+    }
+    else if(state==1){
+      Gameplay2(timeshoot[0], timechange[0]);
+    }
+    else if(state==3){
+      Gameplay3(timeshoot[0], timechange[0]);
+    }
+    else{
+      Gameplay(timeshoot[1], timechange[0]);
+    }
+    if(counter==60){
+      state++;
+      }
+    Gameplay3(timeshoot[0], timechange[0]);
   }
 }
-int Gameplay(){
+void Gameplay(int timeshoot, int timechange){
     randomNum = random(1, 4);
     if(randomNum==1){
       digitalWrite(D3, 1);
@@ -82,12 +102,12 @@ int Gameplay(){
       else if(Time==5){
         break;
       }
-      delay(700);
+      delay(timeshoot);
       Time++;
       }
       Time=0;
       digitalWrite(D3, 0);
-      delay(1000);
+      delay(timechange);
     }
     else if(randomNum==2){
       digitalWrite(D4, 1);
@@ -99,12 +119,12 @@ int Gameplay(){
       else if(Time==5){
         break;
       }
-      delay(700);
+      delay(timeshoot);
       Time++;
       }
       Time=0;
       digitalWrite(D4, 0);
-      delay(1000);
+      delay(timechange);
     }
     else if(randomNum==3){
       digitalWrite(D5, 1);
@@ -116,331 +136,244 @@ int Gameplay(){
       else if(Time==5){
         break;
       }
-      delay(700);
+      delay(timeshoot);
       Time++;
       }
       Time=0;
       digitalWrite(D5, 0);
-      delay(1000);
+      delay(timechange);
     }
     Serial.println(score);
 }
-void Gameplay2(){
+void Gameplay2(int timeshoot, int timechange){
   int i, arr[2];
   for(i=0; i<2; i++){
     arr[i] = random(1, 4);
   }
   if(arr[0]==arr[1]){
-    Gameplay();
+    Gameplay(timeshoot, timechange);
   }
   else{
      if((arr[0]==1&&arr[1]==2)||(arr[0]==2&&arr[1]==1)){
       digitalWrite(D3, 1);
       digitalWrite(D4, 1);
       while(1){
-      if(digitalRead(D0)==1||digitalRead(D1)==1){
-        score++;
+      if(stax >= 2){
         break;
+      }
+      if(digitalRead(D0)==1){
+        score++;
+        stax++;
+        digitalWrite(D3, 0);
+      }
+      if(digitalRead(D1)==1){
+        score++;
+        stax++;
+        digitalWrite(D4, 0);
       }
       else if(Time==5){
         break;
       }
-      delay(700);
+      delay(timeshoot);
       Time++;
       }
       Time=0;
+      stax = 0;
       digitalWrite(D3, 0);
       digitalWrite(D4, 0);
-      delay(1000);
+      delay(timechange);
       }
      else if((arr[0]==1&&arr[1]==3)||(arr[0]==3&&arr[1]==1)){
       digitalWrite(D3, 1);
       digitalWrite(D5, 1);
       while(1){
-      if(digitalRead(D0)==1||digitalRead(D2)==1){
-        score++;
+      if(stax >= 2){
         break;
+      }
+      if(digitalRead(D0)==1){
+        score++;
+        stax++;
+        digitalWrite(D3, 0);
+      }
+      if(digitalRead(D2)==1){
+        score++;
+        stax++;
+        digitalWrite(D5, 0);
       }
       else if(Time==5){
         break;
       }
-      delay(700);
+      delay(timeshoot);
       Time++;
       }
       Time=0;
+      stax = 0;
       digitalWrite(D3, 0);
       digitalWrite(D5, 0);
-      delay(1000);
+      delay(timechange);
       }
       else if((arr[0]==2&&arr[1]==3)||(arr[0]==3&&arr[1]==2)){
       digitalWrite(D4, 1);
       digitalWrite(D5, 1);
       while(1){
-      if(digitalRead(D1)==1||digitalRead(D2)==1){
-        score++;
+      if(stax >= 2){
         break;
+      }
+      if(digitalRead(D1)==1){
+        score++;
+        stax++;
+        digitalWrite(D4, 0);
+      }
+      if(digitalRead(D2)==1){
+        score++;
+        stax++;
+        digitalWrite(D5, 0);
       }
       else if(Time==5){
         break;
       }
-      delay(700);
+      delay(timeshoot);
       Time++;
       }
       Time=0;
+      stax = 0;
       digitalWrite(D4, 0);
       digitalWrite(D5, 0);
-      delay(1000);
+      delay(timechange);
       }
     }
     Serial.println(score);
 }
-void Gameplay3(){
+void Gameplay3(int timeshoot, int timechange){
   int i, arr[3];
   for(i=0; i<2; i++){
     arr[i] = random(1, 4);
   }
   if(arr[0]==arr[1]==arr[2]){
-    Gameplay();
+    Gameplay(timeshoot, timechange);
   }
   else if((arr[0]==1||1==arr[1]||arr[2]==1)&&(arr[0]==2||2==arr[1]||arr[2]==2)&&(arr[0]==3||3==arr[1]||arr[2]==3)){
         digitalWrite(D3, 1);
-        delay(500);
         digitalWrite(D4, 1);
-        delay(500);
         digitalWrite(D5, 1);
       while(1){
-      if(digitalRead(D2)==1||digitalRead(D0)==1||digitalRead(D1)==1){
+      if(digitalRead(D2)==1){
         score++;
+        stax++;
+        digitalWrite(D5, 0);
+      }
+      if(digitalRead(D0)==1){
+        score++;
+        stax++;
+        digitalWrite(D3, 0);
+      }
+      if(digitalRead(D1)==1){
+        score++;
+        stax++;
+        digitalWrite(D4, 0);
+      }
+      if(stax>=3){
         break;
       }
       else if(Time==5){
         break;
       }
-      delay(1000);
+      delay(timeshoot);
       Time++;
       }
       Time=0;
+      stax = 0;
       digitalWrite(D3, 0);
-      delay(500);
       digitalWrite(D4, 0);
-      delay(500);
       digitalWrite(D5, 0);
+      delay(timechange);
   }
   else if((arr[0]==1||1==arr[1]||arr[2]==1)&&(arr[0]==2||2==arr[1]||arr[2]==2)){
         digitalWrite(D3, 1);
-        delay(500);
         digitalWrite(D4, 1);
       while(1){
-      if(digitalRead(D0)==1||digitalRead(D1)==1){
+      if(digitalRead(D0)==1){
         score++;
+        stax++;
+        digitalWrite(D3, 0);
+      }
+      if(digitalRead(D1)==1){
+        score++;
+        stax++;
+        digitalWrite(D4, 0);
+      }
+      if(stax>=2){
         break;
       }
       else if(Time==5){
         break;
       }
-      delay(500);
+      delay(timeshoot);
       Time++;
       }
       Time=0;
+      stax=0;
       digitalWrite(D3, 0);
-      delay(500);
       digitalWrite(D4, 0);
+      delay(timechange);
   }
   else if((arr[0]==1||1==arr[1]||arr[2]==1)&&(arr[0]==3||3==arr[1]||arr[2]==3)){
         digitalWrite(D3, 1);
-        delay(500);
         digitalWrite(D5, 1);
       while(1){
-      if(digitalRead(D2)==1||digitalRead(D0)==1){
+      if(digitalRead(D0)==1){
         score++;
+        stax++;
+        digitalWrite(D3, 0);
+      }
+      if(digitalRead(D2)==1){
+        score++;
+        stax++;
+        digitalWrite(D5, 0);
+      }
+      if(stax>=2){
         break;
       }
       else if(Time==5){
         break;
       }
-      delay(500);
+      delay(timeshoot);
       Time++;
       }
       Time=0;
+      stax=0;
       digitalWrite(D3, 0);
-      delay(500);
       digitalWrite(D5, 0);
+      delay(timechange);
   }
   else if((arr[0]==3||3==arr[1]||arr[2]==3)&&(arr[0]==2||2==arr[1]||arr[2]==2)){
-        digitalWrite(D5, 1);
-        delay(500);
         digitalWrite(D4, 1);
+        digitalWrite(D5, 1);
       while(1){
-      if(digitalRead(D2)==1||digitalRead(D1)==1){
+      if(digitalRead(D1)==1){
         score++;
+        stax++;
+        digitalWrite(D4, 0);
+      }
+      if(digitalRead(D2)==1){
+        score++;
+        stax++;
+        digitalWrite(D5, 0);
+      }
+      if(stax>=2){
         break;
       }
       else if(Time==5){
         break;
       }
-      delay(500);
+      delay(timeshoot);
       Time++;
       }
       Time=0;
-      digitalWrite(D5, 0);
-      delay(500);
+      stax=0;
       digitalWrite(D4, 0);
+      digitalWrite(D5, 0);
+      delay(timechange);
   }
     Serial.println(score);
-}
-void Gameplay4(){
-  int i, arr[3]={1,2,3};
-  while(1){
-    for(i=0; i<3; i++){
-      arr[i] = random(1, 4);
-    }
-    if((arr[0]==1&&arr[1]==2&&arr[2]==3)||(arr[0]==1&&arr[1]==3&&arr[2]==2)||(arr[0]==3&&arr[1]==2&&arr[2]==1)||(arr[0]==3&&arr[1]==1&&arr[2]==2)||(arr[0]==2&&arr[1]==1&&arr[2]==3)||(arr[0]==2&&arr[1]==3&&arr[2]==1)){
-      break;
-    }
-  }
-  if(arr[0]==1&&arr[1]==2&&arr[2]==3){
-        digitalWrite(D3, 1);
-        delay(200);
-        digitalWrite(D4, 1);
-        delay(200);
-        digitalWrite(D5, 1);
-      while(1){
-      if(digitalRead(D2)==1||digitalRead(D0)==1||digitalRead(D1)==1){
-        score++;
-        break;
-      }
-      else if(Time==5){
-        break;
-      }
-      delay(200);
-      Time++;
-      }
-      Time=0;
-      digitalWrite(D3, 0);
-      delay(200);
-      digitalWrite(D4, 0);
-      delay(200);
-      digitalWrite(D5, 0);
-  }
-  else if(arr[0]==1&&arr[1]==3&&arr[2]==2){
-        digitalWrite(D3, 1);
-        delay(200);
-        digitalWrite(D5, 1);
-        delay(200);
-        digitalWrite(D4, 1);
-      while(1){
-      if(digitalRead(D2)==1||digitalRead(D0)==1||digitalRead(D1)==1){
-        score++;
-        break;
-      }
-      else if(Time==5){
-        break;
-      }
-      delay(200);
-      Time++;
-      }
-      Time=0;
-      digitalWrite(D3, 0);
-      delay(200);
-      digitalWrite(D5, 0);
-      delay(200);
-      digitalWrite(D4, 0);
-  }
-   else if(arr[0]==2&&arr[1]==1&&arr[2]==3){
-        digitalWrite(D4, 1);
-        delay(200);
-        digitalWrite(D3, 1);
-        delay(200);
-        digitalWrite(D5, 1);
-      while(1){
-      if(digitalRead(D2)==1||digitalRead(D0)==1||digitalRead(D1)==1){
-        score++;
-        break;
-      }
-      else if(Time==5){
-        break;
-      }
-      delay(200);
-      Time++;
-      }
-      Time=0;
-      digitalWrite(D4, 0);
-      delay(200);
-      digitalWrite(D3, 0);
-      delay(200);
-      digitalWrite(D5, 0);
-  }
-  else if(arr[0]==2&&arr[1]==3&&arr[2]==1){
-        digitalWrite(D4, 1);
-        delay(200);
-        digitalWrite(D5, 1);
-        delay(200);
-        digitalWrite(D3, 1);
-      while(1){
-      if(digitalRead(D2)==1||digitalRead(D0)==1||digitalRead(D1)==1){
-        score++;
-        break;
-      }
-      else if(Time==5){
-        break;
-      }
-      delay(200);
-      Time++;
-      }
-      Time=0;
-      digitalWrite(D4, 0);
-      delay(200);
-      digitalWrite(D5, 0);
-      delay(200);
-      digitalWrite(D3, 0);
-  }
-  else if(arr[0]==3&&arr[1]==1&&arr[2]==2){
-        digitalWrite(D5, 1);
-        delay(200);
-        digitalWrite(D3, 1);
-        delay(200);
-        digitalWrite(D4, 1);
-      while(1){
-      if(digitalRead(D2)==1||digitalRead(D0)==1||digitalRead(D1)==1){
-        score++;
-        break;
-      }
-      else if(Time==5){
-        break;
-      }
-      delay(200);
-      Time++;
-      }
-      Time=0;
-      digitalWrite(D5, 0);
-      delay(200);
-      digitalWrite(D3, 0);
-      delay(200);
-      digitalWrite(D4, 0);
-  }
-  else if(arr[0]==3&&arr[1]==2&&arr[2]==1){
-        digitalWrite(D5, 1);
-        delay(200);
-        digitalWrite(D4, 1);
-        delay(200);
-        digitalWrite(D3, 1);
-      while(1){
-      if(digitalRead(D2)==1||digitalRead(D0)==1||digitalRead(D1)==1){
-        score++;
-        break;
-      }
-      else if(Time==5){
-        break;
-      }
-      delay(200);
-      Time++;
-      }
-      Time=0;
-      digitalWrite(D5, 0);
-      delay(200);
-      digitalWrite(D4, 0);
-      delay(200);
-      digitalWrite(D3, 0);
-  }
-  Serial.println(score);
 }

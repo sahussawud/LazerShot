@@ -24,7 +24,7 @@
 // FirebaseDemo_ESP8266 is a sample that demo the different functions
 // of the FirebaseArduino API.
 
-int score_1, score_2, score_3, score_4, censcore=0, life=0;
+int score_1, score_2, score_3, score_4, censcore=0, life=0, i=0;
 
 
 #include <ESP8266WiFi.h>
@@ -36,13 +36,8 @@ int score_1, score_2, score_3, score_4, censcore=0, life=0;
 #define WIFI_SSID "DOUBLE_R0"
 #define WIFI_PASSWORD "Dr20436527"
 
-<<<<<<< HEAD
-/*#define WIFI_SSID "kit"
-#define WIFI_PASSWORD "kit314159"*/
-=======
-// #define WIFI_SSID "kit"
-// #define WIFI_PASSWORD "kit314159"
->>>>>>> be804d5762bc0b513a523e8af583780c822577cc
+//#define WIFI_SSID "DOUBLE_R0"
+//#define WIFI_PASSWORD "Dr20436527"
 
 void setup() {
   Serial.begin(9600);
@@ -74,21 +69,34 @@ void loop() {
       Serial.println(check);
     }
   }
-  //run time
-  for(int i=1; i<7; i+=1){
-    Firebase.setInt("ran_1", random(1, 3));
-    Firebase.setInt("ran_2", random(1, 3));
-    Firebase.setInt("ran/ran_3", random(1, 3));
+  //run game
+  while(true){
+    Firebase.setInt("ran/ran_1", random(1, 5));
+    Firebase.setInt("ran/ran_2", random(1, 5));
     if(i>=5){
-       Firebase.setInt("ran_3", random(1, 3));
+       Firebase.setInt("ran/ran_3", random(1, 5));
     }
     Serial.print("Count ");
     Serial.println(i);
     Firebase.setInt("count", i);
+    i+=1;
     for(int s=0; s<5; s+=1){
       //check lifepoint realtime
-      if(Firebase.getInt("lifepoint")==100){
-         Firebase.setInt("count", 0);
+      if(Firebase.getInt("lifepoint") >= 100){
+         Firebase.setInt("count", 0); // ส่ง count = 0 แปลว่าจบเกม
+         Firebase.setInt("begin_state", 0); // เปลี่ยน ค่าเพื่อรอผู้เล่นใหม่
+         Firebase.setInt("lifepoint", 0); // รีเซ็ตพลังชีวิต
+         Firebase.setInt("ran/ran_1", 0);
+         Firebase.setInt("ran/ran_2", 0);
+         Firebase.setInt("ran/ran_3", 0);
+         i = 0;
+         String key = Firebase.getString("latest_key/key"); // เอา key ผู้เล่นมา
+           //total score up to firebase
+           censcore += Firebase.getInt("score/score_1");
+           censcore += Firebase.getInt("score/score_2");
+           censcore += Firebase.getInt("score/score_3");
+           censcore += Firebase.getInt("score/score_4");
+           Firebase.setInt("users/"+key+"/score", censcore); // up score to user
       }
       //test 
       Serial.println(s);
@@ -98,13 +106,6 @@ void loop() {
       delay(1000);
     }
   }
-
-  //total score up to firebase
-  censcore += Firebase.getInt("score/score_1");
-  censcore += Firebase.getInt("score/score_2");
-  censcore += Firebase.getInt("score/score_3");
-  censcore += Firebase.getInt("score/score_4");
-  Firebase.setInt("score/censcore", censcore);
 
   //set bact to defult
   Firebase.setInt("ran_1", 0);
