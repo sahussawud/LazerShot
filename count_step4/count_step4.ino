@@ -34,11 +34,11 @@ unsigned long Showtime, Thistime; // ประกาศตัวแปรชื�
 // Set these to run example.
 #define FIREBASE_HOST "lazershotkmitl.firebaseio.com"
 #define FIREBASE_AUTH "WtyRAjhqskV3djoq92VaEXonzMTjri9pV0FKUxXH"
-#define WIFI_SSID "Pond"
-#define WIFI_PASSWORD "pond2000"
+//#define WIFI_SSID "iPhone ของ Punyapat"
+//#define WIFI_PASSWORD "kit127kub"
 
-//#define WIFI_SSID "DOUBLE_R0"
-//#define WIFI_PASSWORD "Dr20436527"
+#define WIFI_SSID "DOUBLE_R0"
+#define WIFI_PASSWORD "Dr20436527"
 
 void setup() {
   Serial.begin(9600);
@@ -79,27 +79,28 @@ void loop() {
         break;
     }
     Firebase.setInt("ran/ran_1", random(1, 5));
-    Firebase.setInt("ran/ran_2", random(1, 5));
-    if(i>=5){
+    if (i >= 59)                                    //second minute start sheet2 
+       Firebase.setInt("ran/ran_2", random(1, 5));
+    if (i >= 129)                                   //third minute start sheet3
        Firebase.setInt("ran/ran_3", random(1, 5));
-    }
+    
     //print check
     Serial.print("Count ");
     Serial.println(i);
     
     Firebase.setInt("count", i);
-    i+=1;
+    
 
     // 5 sec for check count
     for(int s=0; s<5; s+=1){
+      i+=1;
       if(Firebase.getInt("lifepoint") >= 10){  //check lifepoint realtime
          setzero();
          totalscore();
          i=0;
          break;
       }
-      //print check 
-      Serial.println(s);
+      Serial.println(s);  //print check
       timer();
     }
   }
@@ -135,7 +136,7 @@ void timer(){
       Showtime = millis();
       while(true){
         Thistime = millis();
-        delay(1);
+        delay(10);
         if(Thistime/1000-Showtime/1000>=1){
           //Serial.println(Thistime-Showtime);
           Serial.println("Stop");
