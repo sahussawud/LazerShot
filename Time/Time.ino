@@ -8,10 +8,11 @@ void loop(){
   while(1){
     Thistime = millis();
     delay(10);
-    if(Thistime/1000-Showtime/1000>=5){
+    if(Thistime/1000-Showtime/1000>=2){
       Serial.println(Thistime-Showtime);
       Serial.println("Stop");
       break;
     }
   }
+  Serial.println("Finish");
 }
