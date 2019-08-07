@@ -108,10 +108,12 @@ void loop() {
 void totalscore(){
       String key = Firebase.getString("latest_key/key"); // เอา key ผู้เล่นมา
       //total score up to firebase
-      censcore += Firebase.getInt("score/score_1");
+      censcore = Firebase.getInt("score/score_1")+Firebase.getInt("score/score_2")+Firebase.getInt("score/score_3")+Firebase.getInt("score/score_4");
+      
+      /*censcore += Firebase.getInt("score/score_1");
       censcore += Firebase.getInt("score/score_2");
       censcore += Firebase.getInt("score/score_3");
-      censcore += Firebase.getInt("score/score_4");
+      censcore += Firebase.getInt("score/score_4");*/
       Firebase.setInt("users/"+key+"/score", censcore); // up score to user
       Firebase.setInt("score/censcore", censcore);
 
