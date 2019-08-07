@@ -13,6 +13,8 @@
 #define WIFI_SSID "DOUBLE_R0"
 #define WIFI_PASSWORD "Dr20436527"
 
+unsigned long Showtime, Thistime;
+
 void setup() {
   Serial.begin(9600);
 
@@ -55,10 +57,10 @@ void loop() {
   order3 = Firebase.getInt("ran/ran_3");
   // เช้คว่าค่าที่ส่งมาทาง order ตรงกับ เลขบอร์ดของตัวเองรึป่าว
   counter = Firebase.getInt("count");
-  if(order==2||order2==2||order3==2){
-    analogWrite(D6, 100);
+  if(order==3||order2==3||order3==3){
+    digitalWrite(D6, 1);
     delay(500);
-    analogWrite(D6, 0);
+    digitalWrite(D6, 0);
     Serial.println("get it");
     if(counter==0){
       Firebase.setInt("score/score_1", score); // จบเกมและส่งคะแนน
@@ -86,17 +88,20 @@ void loop() {
   }
 }
 void Gameplay(int timeshoot, int timechange){ // ฟังก์ชั่นแรก เปิดแค่ไฟตัวหลอดเดียว
+    Showtime = millis();
     randomNum = random(1, 4); // สุ่มตัวเลข
     if(randomNum==1){ // ถ้าสุ่มได้เลข 1 จะทำ if นี้
       analogWrite(D3, 100); // led เปิด
       while(1){ // loop รันรอรับสัญญาณ เลเซอร์
-      if(digitalRead(D0)==1){
+          Thistime = millis();
+          delay(100);
+          if(Thistime/1000-Showtime/1000>=5){
+          Serial.println(Thistime-Showtime);
+          Serial.println("Stop");
+          break;
+         }
+      else if(digitalRead(D0)==1){
         score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
-        break;
-      }
-      else if(Time==10){
-        life++; // เมื่อ loop รันครบห้ารอบ พลังชีวิตจะลด และสุ่มหลอดใหม่
-        Firebase.setInt("lifepoint", life); // ส่งค่าพลังชีวิตขึ้น Firebase
         break;
       }
       delay(timeshoot/2); // เวลาค้างให้ยิง
