@@ -7,7 +7,7 @@ void loop(){
   Showtime = millis();
   while(1){
     Thistime = millis();
-    delay(10);
+    delay(1);
     if(Thistime/1000-Showtime/1000>=5){
       Serial.println(Thistime-Showtime);
       Serial.println("Stop");
