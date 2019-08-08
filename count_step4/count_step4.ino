@@ -24,7 +24,7 @@
 // FirebaseDemo_ESP8266 is a sample that demo the different functions
 // of the FirebaseArduino API.
 
-int score_1, score_2, score_3, score_4, censcore=0, life=0, i=0;
+int score_1, score_2, score_3, score_4, censcore=0, life=0, i=0, counter;
 unsigned long Showtime, Thistime; // ประกาศตัวแปรชื่อ ShowTime เก็บค่าการนับเวลา เป็นตัวแปร unsigned long
 
 
@@ -79,24 +79,26 @@ void loop() {
         break;
     }
     Firebase.setInt("ran/ran_1", random(1, 5));
+    counter = 1;
     if (i >= 59)                                    //second minute start sheet2 
        Firebase.setInt("ran/ran_2", random(1, 5));
-    if (i >= 129)                                   //third minute start sheet3
+       counter = 2;
+    if (i >= 99)                                   //third minute start sheet3
        Firebase.setInt("ran/ran_3", random(1, 5));
-    
+       counter = 4;
     //print check
     Serial.print("Count ");
     Serial.println(i);
+    Firebase.setInt("count", counter);
     
-    Firebase.setInt("count", i);
     
 
     // 5 sec for check count
     for(int s=0; s<5; s+=1){
       i+=1;
       if(Firebase.getInt("lifepoint") >= 10){  //check lifepoint realtime
-         setzero();
          totalscore();
+         setzero();
          i=0;
          break;
       }
@@ -110,11 +112,6 @@ void totalscore(){
       String key = Firebase.getString("latest_key/key"); // เอา key ผู้เล่นมา
       //total score up to firebase
       censcore = Firebase.getInt("score/score_1")+Firebase.getInt("score/score_2")+Firebase.getInt("score/score_3")+Firebase.getInt("score/score_4");
-      
-      /*censcore += Firebase.getInt("score/score_1");
-      censcore += Firebase.getInt("score/score_2");
-      censcore += Firebase.getInt("score/score_3");
-      censcore += Firebase.getInt("score/score_4");*/
       Firebase.setInt("users/"+key+"/score", censcore); // up score to user
       Firebase.setInt("score/censcore", censcore);
 
