@@ -40,8 +40,8 @@ void setup() {
  /* ประกาศตัวแปร โดย randomNum คือ ตัวเลขที่จะสุ่ม i สำหรับ for loop score เอาไว้เก็บคะแนน Time คือเก็บค่าให้ไฟค้างไว้เป็นจำนวนรอบ
  timeshoot คือเวลาที่ค้างไว้ต่อ1รอบTime timechange คือเวลารอที่จะเปลี่ยนสุมครั้งถัดไป 
  stax เอาไว้เก็บไฟที่โดนยิง life พลังชีวิตผู้เล่น order ลำดับที่บอร์ดตัวลูกจะทำงาน counter ตัวนับว่าถึงstateไหนแล้ว */
-int randomNum, i=0, score=0, Time=0;
-int timeshoot[6]={5, 4, 3}, timechange[6]={1000, 700, 500};
+int randomNum, i=0, score=0;
+int timeshoot[6]={10, 8, 5}, timechange[6]={1500, 1000, 500};
 int stax, life;
 int order, order2, order3, counter;
 
@@ -57,14 +57,13 @@ void loop() {
   order3 = Firebase.getInt("ran/ran_3");
   // เช้คว่าค่าที่ส่งมาทาง order ตรงกับ เลขบอร์ดของตัวเองรึป่าว
   counter = Firebase.getInt("count");
-  if(order==1||order2==1||order3==1){
+  if(order==4||order2==4||order3==4){
     digitalWrite(D6, 1);
     delay(500);
     digitalWrite(D6, 0);
     Serial.println("get it");
     }
     if(counter==0){
-      Firebase.setInt("score/score_1", 0);
     }
     else if(counter==1){
       Gameplay(timeshoot[0], timechange[0]); // รัน state แรก
@@ -86,12 +85,12 @@ void loop() {
     }
   }
 
-  
+
 void Gameplay(int timeshoot, int timechange){ // ฟังก์ชั่นแรก เปิดแค่ไฟตัวหลอดเดียว
     randomNum = random(1, 4); // สุ่มตัวเลข
     if(randomNum==1){ // ถ้าสุ่มได้เลข 1 จะทำ if นี้
       Showtime = millis();
-      analogWrite(D3, 100); // led เปิด
+      analogWrite(D3, 255); // led เปิด
       while(1){ // loop รันรอรับสัญญาณ เลเซอร์
           Thistime = millis();
           delay(1);
@@ -106,9 +105,9 @@ void Gameplay(int timeshoot, int timechange){ // ฟังก์ชั่นแ�
          }
       else if(digitalRead(D0)==1){
         analogWrite(D3, 0);
-        score = Firebase.getInt("score/score_1");
+        score = Firebase.getInt("score/score_4");
         score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
-        Firebase.setInt("score/score_1", score);
+        Firebase.setInt("score/score_4", score);
         break;
       }
     }
@@ -131,13 +130,13 @@ void Gameplay(int timeshoot, int timechange){ // ฟังก์ชั่นแ�
          }
       else if(digitalRead(D1)==1){
         analogWrite(D4, 0);
-        score = Firebase.getInt("score/score_1");
+        score = Firebase.getInt("score/score_4");
         score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
-        Firebase.setInt("score/score_1", score);
+        Firebase.setInt("score/score_4", score);
         break;
       }
-      delay(timechange);
     }
+    delay(timechange);
   }
     else if(randomNum==3){
       Showtime = millis();
@@ -156,9 +155,9 @@ void Gameplay(int timeshoot, int timechange){ // ฟังก์ชั่นแ�
          }
       else if(digitalRead(D2)==1){
         analogWrite(D5, 0);
-        score = Firebase.getInt("score/score_1");
+        score = Firebase.getInt("score/score_4");
         score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
-        Firebase.setInt("score/score_1", score);
+        Firebase.setInt("score/score_4", score);
         break;
       }
     }
@@ -177,12 +176,14 @@ void Gameplay2(int timeshoot, int timechange){ // เปิดไฟพร้อ
   else{
      if((arr[0]==1&&arr[1]==2)||(arr[0]==2&&arr[1]==1)){
       Showtime = millis();
-      analogWrite(D3, 100);
+      analogWrite(D3, 255);
       analogWrite(D4, 100);
       while(1){
       Thistime = millis();
           delay(1);
        if(Thistime/1000-Showtime/1000>=timeshoot){
+          analogWrite(D3, 0);
+          analogWrite(D4, 0);
           Serial.println(Thistime-Showtime/1000);
           Serial.println("Stop");
           life = Firebase.getInt("lifepoint");
@@ -194,33 +195,33 @@ void Gameplay2(int timeshoot, int timechange){ // เปิดไฟพร้อ
         break;
       }
       if(digitalRead(D0)==1){ // ถ้ายิงโดดจะดับทีละหลอด
-        score = Firebase.getInt("score/score_1");
-        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
-        Firebase.setInt("score/score_1", score);
-        stax++;
         analogWrite(D3, 0);
+        score = Firebase.getInt("score/score_4");
+        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
+        Firebase.setInt("score/score_4", score);
+        stax++;
       }
       if(digitalRead(D1)==1){
-        score = Firebase.getInt("score/score_1");
-        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
-        Firebase.setInt("score/score_1", score);
-        stax++;
         analogWrite(D4, 0);
+        score = Firebase.getInt("score/score_4");
+        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
+        Firebase.setInt("score/score_4", score);
+        stax++;
       }
       }
       stax = 0;
-      analogWrite(D3, 0);
-      analogWrite(D4, 0);
       delay(timechange);
       }
      else if((arr[0]==1&&arr[1]==3)||(arr[0]==3&&arr[1]==1)){
       Showtime = millis();
-      analogWrite(D3, 100);
+      analogWrite(D3, 255);
       analogWrite(D5, 100);
       while(1){
      Thistime = millis();
           delay(1);
        if(Thistime/1000-Showtime/1000>=timeshoot){
+          analogWrite(D3, 0);
+          analogWrite(D5, 0);
           Serial.println(Thistime-Showtime/1000);
           Serial.println("Stop");
           life = Firebase.getInt("lifepoint");
@@ -232,23 +233,21 @@ void Gameplay2(int timeshoot, int timechange){ // เปิดไฟพร้อ
         break;
       }
       if(digitalRead(D0)==1){
-        score = Firebase.getInt("score/score_1");
-        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
-        Firebase.setInt("score/score_1", score);
-        stax++;
         analogWrite(D3, 0);
+        score = Firebase.getInt("score/score_4");
+        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
+        Firebase.setInt("score/score_4", score);
+        stax++;
       }
       if(digitalRead(D2)==1){
-        score = Firebase.getInt("score/score_1");
-        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
-        Firebase.setInt("score/score_1", score);
-        stax++;
         analogWrite(D5, 0);
+        score = Firebase.getInt("score/score_4");
+        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
+        Firebase.setInt("score/score_4", score);
+        stax++;
       }
     }
       stax = 0;
-      analogWrite(D3, 0);
-      analogWrite(D5, 0);
       delay(timechange);
       }
       else if((arr[0]==2&&arr[1]==3)||(arr[0]==3&&arr[1]==2)){
@@ -259,6 +258,8 @@ void Gameplay2(int timeshoot, int timechange){ // เปิดไฟพร้อ
           Thistime = millis();
           delay(1);
        if(Thistime/1000-Showtime/1000>=timeshoot){
+          analogWrite(D4, 0);
+          analogWrite(D5, 0);
           Serial.println(Thistime-Showtime/1000);
           Serial.println("Stop");
           life = Firebase.getInt("lifepoint");
@@ -270,23 +271,21 @@ void Gameplay2(int timeshoot, int timechange){ // เปิดไฟพร้อ
         break;
       }
       if(digitalRead(D1)==1){
-        score = Firebase.getInt("score/score_1");
-        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
-        Firebase.setInt("score/score_1", score);
-        stax++;
         analogWrite(D4, 0);
+        score = Firebase.getInt("score/score_4");
+        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
+        Firebase.setInt("score/score_4", score);
+        stax++;
       }
       if(digitalRead(D2)==1){
-        score = Firebase.getInt("score/score_1");
-        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
-        Firebase.setInt("score/score_1", score);
-        stax++;
         analogWrite(D5, 0);
+        score = Firebase.getInt("score/score_4");
+        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
+        Firebase.setInt("score/score_4", score);
+        stax++;
       }
       }
       stax = 0;
-      analogWrite(D4, 0);
-      analogWrite(D5, 0);
       delay(timechange);
       }
     }
@@ -302,13 +301,16 @@ void Gameplay3(int timeshoot, int timechange){ // เปิดทีละ 3 ห
   }
   else if((arr[0]==1||1==arr[1]||arr[2]==1)&&(arr[0]==2||2==arr[1]||arr[2]==2)&&(arr[0]==3||3==arr[1]||arr[2]==3)){
         Showtime = millis();
-        analogWrite(D3, 100);
+        analogWrite(D3, 255);
         analogWrite(D4, 100);
         analogWrite(D5, 100);
       while(1){
           Thistime = millis();
           delay(1);
        if(Thistime/1000-Showtime/1000>=timeshoot){
+          analogWrite(D3, 0);
+          analogWrite(D4, 0);
+          analogWrite(D5, 0);
           Serial.println(Thistime-Showtime/1000);
           Serial.println("Stop");
           life = Firebase.getInt("lifepoint");
@@ -317,44 +319,43 @@ void Gameplay3(int timeshoot, int timechange){ // เปิดทีละ 3 ห
           break;
          }
       if(digitalRead(D2)==1){
-        score = Firebase.getInt("score/score_1");
-        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
-        Firebase.setInt("score/score_1", score);
-        stax++;
         analogWrite(D5, 0);
+        score = Firebase.getInt("score/score_4");
+        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
+        Firebase.setInt("score/score_4", score);
+        stax++;
       }
       if(digitalRead(D0)==1){
-        score = Firebase.getInt("score/score_1");
-        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
-        Firebase.setInt("score/score_1", score);
-        stax++;
         analogWrite(D3, 0);
+        score = Firebase.getInt("score/score_4");
+        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
+        Firebase.setInt("score/score_4", score);
+        stax++;
       }
       if(digitalRead(D1)==1){
-        score = Firebase.getInt("score/score_1");
-        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
-        Firebase.setInt("score/score_1", score);
-        stax++;
         analogWrite(D4, 0);
+        score = Firebase.getInt("score/score_4");
+        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
+        Firebase.setInt("score/score_4", score);
+        stax++;
       }
       if(stax>=3){
         break;
       }
       }
       stax = 0;
-      analogWrite(D3, 0);
-      analogWrite(D4, 0);
-      analogWrite(D5, 0);
       delay(timechange);
   }
   else if((arr[0]==1||1==arr[1]||arr[2]==1)&&(arr[0]==2||2==arr[1]||arr[2]==2)){
         Showtime = millis();
-        analogWrite(D3, 100);
+        analogWrite(D3, 255);
         analogWrite(D4, 100);
       while(1){
           Thistime = millis();
           delay(1);
        if(Thistime/1000-Showtime/1000>=timeshoot){
+          analogWrite(D3, 0);
+          analogWrite(D4, 0);
           Serial.println(Thistime-Showtime/1000);
           Serial.println("Stop");
           life = Firebase.getInt("lifepoint");
@@ -363,36 +364,36 @@ void Gameplay3(int timeshoot, int timechange){ // เปิดทีละ 3 ห
           break;
          }
       if(digitalRead(D0)==1){
-        score = Firebase.getInt("score/score_1");
-        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
-        Firebase.setInt("score/score_1", score);
-        stax++;
         analogWrite(D3, 0);
+        score = Firebase.getInt("score/score_4");
+        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
+        Firebase.setInt("score/score_4", score);
+        stax++;
       }
       if(digitalRead(D1)==1){
-        score = Firebase.getInt("score/score_1");
-        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
-        Firebase.setInt("score/score_1", score);
-        stax++;
         analogWrite(D4, 0);
+        score = Firebase.getInt("score/score_4");
+        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
+        Firebase.setInt("score/score_4", score);
+        stax++;
       }
       if(stax>=2){
         break;
       }
      }
       stax=0;
-      analogWrite(D3, 0);
-      analogWrite(D4, 0);
       delay(timechange);
   }
   else if((arr[0]==1||1==arr[1]||arr[2]==1)&&(arr[0]==3||3==arr[1]||arr[2]==3)){
         Showtime = millis();
-        analogWrite(D3, 100);
+        analogWrite(D3, 255);
         analogWrite(D5, 100);
       while(1){
           Thistime = millis();
           delay(1);
        if(Thistime/1000-Showtime/1000>=timeshoot){
+          analogWrite(D3, 0);
+          analogWrite(D5, 0);
           Serial.println(Thistime-Showtime/1000);
           Serial.println("Stop");
           life = Firebase.getInt("lifepoint");
@@ -401,26 +402,24 @@ void Gameplay3(int timeshoot, int timechange){ // เปิดทีละ 3 ห
           break;
          }
       if(digitalRead(D0)==1){
-        score = Firebase.getInt("score/score_1");
-        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
-        Firebase.setInt("score/score_1", score);
-        stax++;
         analogWrite(D3, 0);
+        score = Firebase.getInt("score/score_4");
+        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
+        Firebase.setInt("score/score_4", score);
+        stax++;
       }
       if(digitalRead(D2)==1){
-        score = Firebase.getInt("score/score_1");
-        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
-        Firebase.setInt("score/score_1", score);
-        stax++;
         analogWrite(D5, 0);
+        score = Firebase.getInt("score/score_4");
+        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
+        Firebase.setInt("score/score_4", score);
+        stax++;
       }
       if(stax>=2){
         break;
       }
       }
       stax=0;
-      analogWrite(D3, 0);
-      analogWrite(D5, 0);
       delay(timechange);
   }
   else if((arr[0]==3||3==arr[1]||arr[2]==3)&&(arr[0]==2||2==arr[1]||arr[2]==2)){
@@ -431,6 +430,8 @@ void Gameplay3(int timeshoot, int timechange){ // เปิดทีละ 3 ห
           Thistime = millis();
           delay(1);
        if(Thistime/1000-Showtime/1000>=timeshoot){
+          analogWrite(D4, 0);
+          analogWrite(D5, 0);
           Serial.println(Thistime-Showtime/1000);
           Serial.println("Stop");
           life = Firebase.getInt("lifepoint");
@@ -439,26 +440,24 @@ void Gameplay3(int timeshoot, int timechange){ // เปิดทีละ 3 ห
           break;
          }
       if(digitalRead(D1)==1){
-         score = Firebase.getInt("score/score_1");
-        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
-        Firebase.setInt("score/score_1", score);
-        stax++;
         analogWrite(D4, 0);
+         score = Firebase.getInt("score/score_4");
+        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
+        Firebase.setInt("score/score_4", score);
+        stax++;
       }
       if(digitalRead(D2)==1){
-        score = Firebase.getInt("score/score_1");
-        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
-        Firebase.setInt("score/score_1", score);
-        stax++;
         analogWrite(D5, 0);
+        score = Firebase.getInt("score/score_4");
+        score++;  // ถ้าได้รับเลเซอร์ จะบวกคะแนน
+        Firebase.setInt("score/score_4", score);
+        stax++;
       }
       if(stax>=2){
         break;
       }
       }
       stax=0;
-      analogWrite(D4, 0);
-      analogWrite(D5, 0);
       delay(timechange);
   }
     Serial.println(score);
