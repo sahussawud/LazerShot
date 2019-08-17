@@ -19,7 +19,7 @@ var degrees = 0;
         ctx.lineWidth = 25;
         ctx.strokeStyle = bgcolor;
         ctx.arc(W / 2, H / 2, Math.floor(W / 3), 0.7 * Math.PI, 0.3 * Math.PI, false);
-        
+
         ctx.stroke();
 
         //center circle
@@ -58,7 +58,7 @@ var degrees = 0;
         var stepAngle = (Math.PI * 2) / 10;
         var currentAngle = 0.20 * Math.PI;
 
-      
+
 
 
         //angle in radians =angle in drgrees*pi/180 fill color
@@ -70,7 +70,7 @@ var degrees = 0;
         my_gradient.addColorStop(0, "#B31918");
         my_gradient.addColorStop(1, "#FFA000");
         ctx.strokeStyle = my_gradient;
-        //the arc  start from the rightmost end. if we deduct 90 degrees from the angles 
+        //the arc  start from the rightmost end. if we deduct 90 degrees from the angles
         //the arc will start from the top most end
         ctx.arc(W / 2, H / 2, Math.floor(W / 3), 0.7 * Math.PI, 0.7 * Math.PI + 1.6 * Math.PI / 100 * percent, false); //you can see thr src now
         ctx.stroke();
@@ -89,7 +89,7 @@ var degrees = 0;
         ctx.fillText(text2, W / 2, H / 2 + 110);
     }
 
-   
+
     function draw(val, name, type) {
         // console.log(val);
         if (name != "" || name != null) {
@@ -131,3 +131,40 @@ var degrees = 0;
 
 
     });
+
+var myVar;
+var second = 0;
+var hour = 0;
+var state = 0;
+function start(msg){
+    if (msg == 'P'){
+        clearInterval(myVar);
+    }
+    if (msg == 'R'){
+        clearInterval(myVar);
+        second = 0;
+        hour = 0;
+        state = 0;
+        document.getElementById("timer").innerHTML = "00:00";
+    }if (msg == 'S' && state == 0) {
+        myVar = setInterval(myTimer, 250);
+        function myTimer() {
+            if (second == 60){
+                second = 0;
+                hour += 1;
+            }
+            if (second < 10 && hour < 10){
+                document.getElementById("timer").innerHTML = "0" + hour + ":" + "0" + second;
+            } else if (second < 10){
+                document.getElementById("timer").innerHTML = hour + ":" + "0" + second;
+            } else if (hour < 10){
+                document.getElementById("timer").innerHTML = "0" + hour + ":" + second;
+            } else {
+                document.getElementById("timer").innerHTML = hour + ":" + second;
+            }
+            second += 1;
+            state = 1;
+        }
+    }
+}
+

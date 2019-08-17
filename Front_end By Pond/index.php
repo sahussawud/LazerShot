@@ -5,6 +5,9 @@
 
 <!DOCTYPE html>
 <html lang="en">
+    <!-- background -->
+    <div class="stars"></div>
+    <div class="twinkling"></div>
 <head>
 
     <meta charset="UTF-8">
@@ -50,21 +53,28 @@
 
     <!-- HP BAR_V.1 -->
 
-    <!-- <div class="row">
+    <div class="row">
             <div class="col-sm-4"><canvas id="canvas3" width="400" height="400"></canvas></div>
             <div class="col-sm-1"><input id="get_rpm" type="number"/></div>
-    </div> -->
+    </div>
 
-    <progress id="HP_Bar_ong" class="progressboss" max="300" value="0"></progress>
+    <div id="timer">00:00</div>
+    <br><br>
+    <div style="text-align: center;">
+        <button class="buttonStart" onclick="start('S')">Start</button>
+        <button class="btn-hover color-2" onclick="start('P')">Pause</button>
+        <button class="btn-hover color-2" onclick="start('R')">Reset</button>
+    </div>
     <!-- ศส่วนของ MQTT ของอ๋อง -->
-    <button class="btn-hover color-2" onclick="send('1')">+</button>
-    <button class="btn-hover color-2" onclick="send('-1')">-</button>
-    <button class="btn-hover color-2" onclick="random()">Random</button>
-    <button class="btn-hover color-2" onclick="send('R')">Reset</button>
+
+        <button class="btn-hover color-2" onclick="send('1')">+</button>
+        <button class="btn-hover color-2" onclick="send('-1')">-</button>
+        <button class="btn-hover color-2" onclick="random()">Random</button>
+        <button class="btn-hover color-2" onclick="send('R')">Reset</button>
     <!-- การส่งค่าขึ้น MQTT -->
     <input type="text" id="score" placeholder="Score" required></p>
     <button class="btn-hover color-2" onclick="send('S')">send</button>
-    <p id="demo">X</p>
+    <p id="sub_mqtt">X</p>
     <p id="number">1</p>
 </body>
 
