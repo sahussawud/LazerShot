@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 var degrees = 0;
     var color = "lightblue";
     var bgcolor = "#222";
@@ -155,7 +155,6 @@ var degrees = 0;
             document.getElementById("minute").innerHTML ='0' ;
             document.getElementById("second").innerHTML = '0'; }
     }, 1000);
-=======
 var degrees = 0;
     var color = "lightblue";
     var bgcolor = "#222";
@@ -177,7 +176,6 @@ var degrees = 0;
         ctx.lineWidth = 25;
         ctx.strokeStyle = bgcolor;
         ctx.arc(W / 2, H / 2, Math.floor(W / 3), 0.7 * Math.PI, 0.3 * Math.PI, false);
-
         ctx.stroke();
 
         //center circle
@@ -325,5 +323,3 @@ function start(msg){
         }
     }
 }
-
->>>>>>> 3c7c2ec1fa803617248d78693e4a9ee692825395

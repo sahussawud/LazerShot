@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <script src="paho.javascript-1.0.3/paho-mqtt.js"></script>
 <script>
     client = new Paho.MQTT.Client("broker.mqttdashboard.com", Number(8000), "ongsuwannoo");
@@ -49,8 +49,6 @@
       document.getElementById("number").innerHTML = number;
     }
 
-
-=======
 <script src="paho.javascript-1.0.3/paho-mqtt.js"></script>
 <script>
     client = new Paho.MQTT.Client("broker.mqttdashboard.com", Number(8000), "ongsuwannoo");
@@ -100,7 +98,4 @@
       number = Math.floor(Math.random() * (+max - +min)) + +min;
       document.getElementById("number").innerHTML = number;
     }
-
-
->>>>>>> 3c7c2ec1fa803617248d78693e4a9ee692825395
 </script>
