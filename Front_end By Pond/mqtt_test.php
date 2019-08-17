@@ -9,13 +9,13 @@
 
     function onConnect() {
       console.log("onConnect");
-      client.subscribe("rew");
+      client.subscribe("test_input");
     }
 
     function send(msg){
       if (msg == 'R'){
         score = 0;
-        document.getElementById("demo").innerHTML = score;
+        document.getElementById("sub_mqtt").innerHTML = score;
       }
       else if (msg == 'S'){
         message = new Paho.MQTT.Message(document.getElementById("score").value);
@@ -38,7 +38,7 @@
     function onMessageArrived(message) {
       console.log("onMessageArrived:"+message.payloadString);
       score += Number(message.payloadString);
-      document.getElementById("demo").innerHTML = score;
+      document.getElementById("sub_mqtt").innerHTML = score;
     }
 
     function random(){
@@ -47,5 +47,6 @@
       number = Math.floor(Math.random() * (+max - +min)) + +min;
       document.getElementById("number").innerHTML = number;
     }
+
 
 </script>

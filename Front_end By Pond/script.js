@@ -19,7 +19,7 @@ var degrees = 0;
         ctx.lineWidth = 25;
         ctx.strokeStyle = bgcolor;
         ctx.arc(W / 2, H / 2, Math.floor(W / 3), 0.7 * Math.PI, 0.3 * Math.PI, false);
-        
+
         ctx.stroke();
 
         //center circle
@@ -58,7 +58,7 @@ var degrees = 0;
         var stepAngle = (Math.PI * 2) / 10;
         var currentAngle = 0.20 * Math.PI;
 
-      
+
 
 
         //angle in radians =angle in drgrees*pi/180 fill color
@@ -70,7 +70,7 @@ var degrees = 0;
         my_gradient.addColorStop(0, "#B31918");
         my_gradient.addColorStop(1, "#FFA000");
         ctx.strokeStyle = my_gradient;
-        //the arc  start from the rightmost end. if we deduct 90 degrees from the angles 
+        //the arc  start from the rightmost end. if we deduct 90 degrees from the angles
         //the arc will start from the top most end
         ctx.arc(W / 2, H / 2, Math.floor(W / 3), 0.7 * Math.PI, 0.7 * Math.PI + 1.6 * Math.PI / 100 * percent, false); //you can see thr src now
         ctx.stroke();
@@ -89,7 +89,7 @@ var degrees = 0;
         ctx.fillText(text2, W / 2, H / 2 + 110);
     }
 
-   
+
     function draw(val, name, type) {
         // console.log(val);
         if (name != "" || name != null) {
@@ -131,3 +131,26 @@ var degrees = 0;
 
 
     });
+
+    var deadline = new Date("dec 31, 2017 15:37:25").getTime();
+
+    var x = setInterval(function() {
+
+    var now = new Date().getTime();
+    var t = deadline - now;
+    var days = Math.floor(t / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((t%(1000 * 60 * 60 * 24))/(1000 * 60 * 60));
+    var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((t % (1000 * 60)) / 1000);
+    document.getElementById("day").innerHTML =days ;
+    document.getElementById("hour").innerHTML =hours;
+    document.getElementById("minute").innerHTML = minutes;
+    document.getElementById("second").innerHTML =seconds;
+    if (t < 0) {
+            clearInterval(x);
+            document.getElementById("time").innerHTML = "TIME UP";
+            document.getElementById("day").innerHTML ='0';
+            document.getElementById("hour").innerHTML ='0';
+            document.getElementById("minute").innerHTML ='0' ;
+            document.getElementById("second").innerHTML = '0'; }
+    }, 1000);

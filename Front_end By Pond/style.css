@@ -8,7 +8,7 @@ body{
     font-family: 'Play', sans-serif;
 }
 
-#demo{
+#sub_mqtt{
     text-align: center;
     top:200px;
     color: green;
@@ -22,10 +22,43 @@ body{
     font-size: 50px;
     font-family: 'Pacifico', cursive;
     }
-#HP_Bar_ong{
+
+h1{
+  color: #396;
+  font-weight: 100;
+  font-size: 40px;
+  margin: 40px 0px 20px;
+}
+ #clockdiv{
+    font-family: sans-serif;
+    color: #fff;
+    display: inline-block;
+    font-weight: 100;
+    text-align: center;
+    font-size: 30px;
+}
+#clockdiv > div{
+    padding: 10px;
+    border-radius: 3px;
+    background: #00BF96;
+    display: inline-block;
+}
+#clockdiv div > span{
+    padding: 15px;
+    border-radius: 3px;
+    background: #00816A;
+    display: inline-block;
+}
+smalltext{
+    padding-top: 5px;
+    font-size: 16px;
+}
+
+/*#HP_Bar_ong{
     position: fixed;
     width: 50%;height: 3%;
-    left:25%; top: 2.3%;
-    transform: rotate(180deg);
-    z-index: -4;
+    left:25%; top: 10%;
     }
+    .HP_Bar_ong {background:gray;}
+    .HP_Bar_ong::-webkit-progress-bar{background: transparent;}
+    .HP_Bar_ong::-webkit-progress-value{background: #FF007F;}*/
