@@ -1,9 +1,31 @@
 #canvas2{
     display:inline;
-  
-    
+
+
 }
 body{
     background:#333;
     font-family: 'Play', sans-serif;
 }
+
+#demo{
+    text-align: center;
+    top:200px;
+    color: green;
+    font-size: 50px;
+    font-family: 'Pacifico', cursive;
+    }
+#number{
+    text-align: center;
+    top:200px;
+    color: white;
+    font-size: 50px;
+    font-family: 'Pacifico', cursive;
+    }
+#HP_Bar_ong{
+    position: fixed;
+    width: 50%;height: 3%;
+    left:25%; top: 2.3%;
+    transform: rotate(180deg);
+    z-index: -4;
+    }

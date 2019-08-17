@@ -3,35 +3,70 @@
     include("mqtt_test.php")
 ?>
 
-<html>
-    <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
-    </head>
-    <body>
-        <button class="btn-hover color-2" onclick="send('1')">+</button>
-        <button class="btn-hover color-2" onclick="send('-1')">-</button>
-        <button class="btn-hover color-2" onclick="random()">Random</button>
-        <button class="btn-hover color-2" onclick="send('R')">Reset</button>
-<!--         <form method="POST">
-            <input type="text" id="score" placeholder="Score" required></p>
-            <button class="btn-hover color-2" onclick="send()">send</button>
-        </form> -->
-        <p id="demo">X</p>
-        <p id="number">1</p>
-    </body>
-    <style>
-        #demo{
-        text-align: center;
-        top:200px;
-        color: green;
-        font-size: 50px;
-        font-family: 'Pacifico', cursive;
-        }
-        #number{
-        text-align: center;
-        top:200px;
-        font-size: 50px;
-        font-family: 'Pacifico', cursive;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LAZERSHOT</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./style.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    <script src="./script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-1">
+                    <center>
+                        <h1 style="color: aqua;">DASHBOARD</h1>
+                    </center>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="container-fluid">
+
+        <div class="media col-sm-4">
+            <div class="media-left">
+                <img src="https://cdn.shopify.com/s/files/1/2265/4045/products/Productshot.jpg?v=1545336364" class="media-object" style="width:100px">
+            </div>
+                <div class="media-body">
+                    <h4 class="media-heading" style="color: azure">NAME : IP 198.168.0.1</h4>
+                    <img src="https://thumbs.gfycat.com/WideShowyJohndory.webp" style="width: 180px">
+                </div>
+            </div>
+        </div>
+
+    <!-- HP BAR_V.1 -->
+
+    <!-- <div class="row">
+            <div class="col-sm-4"><canvas id="canvas3" width="400" height="400"></canvas></div>
+            <div class="col-sm-1"><input id="get_rpm" type="number"/></div>
+    </div> -->
+
+    <progress id="HP_Bar_ong" class="progressboss" max="300" value="0"></progress>
+    <!-- ศส่วนของ MQTT ของอ๋อง -->
+    <button class="btn-hover color-2" onclick="send('1')">+</button>
+    <button class="btn-hover color-2" onclick="send('-1')">-</button>
+    <button class="btn-hover color-2" onclick="random()">Random</button>
+    <button class="btn-hover color-2" onclick="send('R')">Reset</button>
+    <!-- การส่งค่าขึ้น MQTT -->
+    <input type="text" id="score" placeholder="Score" required></p>
+    <button class="btn-hover color-2" onclick="send('S')">send</button>
+    <p id="demo">X</p>
+    <p id="number">1</p>
+</body>
+
+</body>
 </html>

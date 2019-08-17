@@ -17,6 +17,11 @@
         score = 0;
         document.getElementById("demo").innerHTML = score;
       }
+      else if (msg == 'S'){
+        message = new Paho.MQTT.Message(document.getElementById("score").value);
+        message.destinationName = "rew";
+        client.send(message);
+      }
       else{
         message = new Paho.MQTT.Message(msg);
         message.destinationName = "rew";
