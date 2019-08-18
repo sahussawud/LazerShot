@@ -3,18 +3,26 @@ void setup() {
 Serial.begin(9600);
 }
 
-String txt2, txt3, txt4;
+int num, num2, num3;
 String txt = "02,03,1500";
 
 void loop() {
   // put your main code here, to run repeatedly:
-  txt2 = txt.substring(0, 2);
-  Serial.println(txt2);
+  spilt(txt);
+  Serial.println(num);
+  Serial.println(num2);
+  Serial.println(num3);
   delay(1000);
-  txt3 = txt.substring(3, 5);
-  Serial.println(txt3);
-  delay(1000);
-  txt4 = txt.substring(6);
+}
+void spilt(String txt){
+  String txt2, txt3, txt4;
+  txt4 = txt.substring(0, 2);
   Serial.println(txt4);
-  delay(1000);
+  txt2 = txt.substring(3, 5);
+  Serial.println(txt2);
+  txt3 = txt.substring(6);
+  Serial.println(txt3);
+  num2 = txt2.toInt();
+  num3 = txt3.toInt();
+  num = txt4.toInt();
 }
