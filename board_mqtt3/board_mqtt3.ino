@@ -136,11 +136,13 @@ void loop() {
     reconnect();
   }
   client.loop();
-  if(state_led==1){
-    Gameplay();
-  }
-  else if(state_led==2){
-    Gameplay2();
+  if(index_==1){
+      if(state_led==1){
+        Gameplay();
+      }
+      else if(state_led==2){
+        Gameplay2();
+      }
   }
 }
 void Gameplay(){
