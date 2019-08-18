@@ -37,7 +37,7 @@ PubSubClient client(espClient);
 long lastMsg = 0;
 char msg[50];
 int val = 0, tag = 0;
-int index, state_led, Time;
+int index_, state_led, Time;
 
 void setup_wifi() {
 
@@ -136,19 +136,47 @@ void loop() {
     reconnect();
   }
   client.loop();
-  
+  if(state_led==1){
+    Gameplay();
+  }
+  else if(state_led==2){
+    Gameplay2();
+  }
 }
-int Gameplay(){
+void Gameplay(){
    unsigned long pretime, thistime;
+   digitalWrite(D0, 1);
    pretime = millis();
    while(1){
     thistime  = millis();
-    if(pretime-thistime>=){
-    client.publish("test_input", "-1");
+    if(pretime-thistime>=Time){
+      digitalWrite(D0, 0);
+      client.publish("test_input", "-1");
       break;
     }
     else if(digitalRead(D3)==1){
-    client.publish("test_input", "1");
+      digitalWrite(D0, 0);
+      client.publish("test_input", "1");
+      break;
+    }
+   }
+}
+
+void Gameplay2(){
+   unsigned long pretime, thistime;
+   digitalWrite(D1, 1);
+   pretime = millis();
+   while(1){
+    thistime  = millis();
+    if(pretime-thistime>=Time){
+      digitalWrite(D0, 0);
+      client.publish("test_input", "-1");
+      break;
+    }
+    else if(digitalRead(D3)==1){
+      digitalWrite(D0, 0);
+      client.publish("test_input", "2");
+      break;
     }
    }
 }
@@ -161,7 +189,7 @@ void spilt(String txt){
   Serial.println(txt2);
   txt4 = txt.substring(6);
   Serial.println(txt3);
-  index = txt2.toInt();
+  index_ = txt2.toInt();
   state_led = txt3.toInt();
   Time = txt4.toInt();
 }
