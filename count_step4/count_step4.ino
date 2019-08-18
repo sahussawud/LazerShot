@@ -24,7 +24,7 @@
 // FirebaseDemo_ESP8266 is a sample that demo the different functions
 // of the FirebaseArduino API.
 
-int score_1, score_2, score_3, score_4, censcore=0, life=0, i=0, counter;
+int score_1, score_2, score_3, score_4, censcore=0, life=0, i=0, counter=0;
 unsigned long Showtime, Thistime; // ประกาศตัวแปรชื่อ ShowTime เก็บค่าการนับเวลา เป็นตัวแปร unsigned long
 
 
@@ -71,7 +71,7 @@ void loop() {
   //run game
   while(true){
     //check lifepoint for set all
-    if (Firebase.getInt("lifepoint") >= 10){
+    if (Firebase.getInt("lifepoint") >= 20){
         //print check
         Serial.print("Lifepoint : ");
         Serial.println(Firebase.getInt("lifepoint"));
@@ -96,7 +96,7 @@ void loop() {
     // 5 sec for check count
     for(int s=0; s<5; s+=1){
       i+=1;
-      if(Firebase.getInt("lifepoint") >= 10){  //check lifepoint realtime
+      if(Firebase.getInt("lifepoint") >= 20){  //check lifepoint realtime
          totalscore();
          setzero();
          i=0;
@@ -107,6 +107,7 @@ void loop() {
     }
   }
 }
+
 
 void totalscore(){
       String key = Firebase.getString("latest_key/key"); // เอา key ผู้เล่นมา
@@ -127,6 +128,7 @@ void setzero(){
       Firebase.setInt("ran/ran_1", 0);
       Firebase.setInt("ran/ran_2", 0);
       Firebase.setInt("ran/ran_3", 0);
+      counter = 0;
 }
 
 void timer(){

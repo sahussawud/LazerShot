@@ -126,28 +126,18 @@ void setup() {
   pinMode(D0, OUTPUT); //light 1
   pinMode(D1, OUTPUT); //light 2
   pinMode(D2, OUTPUT); //light 3
+  pinMode(D3, INPUT); //Input lazor
 }
 
 unsigned long pretime, thistime;
 
 void loop() {
-
   if (!client.connected()) {
     reconnect();
   }
-  client.loop();
-  pretime = millis();
-  while(tag == 1){
-    thistime = millis();
-     if(val == 1){
-        digitalWrite(D0, 1);
-     }
-     String val_str = String(val);
-     char val_char[10];
-     val_str.toCharArray(val_char, 10);
-     client.publish("test_input", val_char);
-     client.loop();
-     delay(1000);
-  }
-  
+    digitalWrite(D0, 1);
+    delay(1000);
+    digitalWrite(D1, 1);
+    delay(1000);
+    digitalWrite(D2, 1);
 }
