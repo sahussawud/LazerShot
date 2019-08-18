@@ -36,13 +36,8 @@ WiFiClient espClient;
 PubSubClient client(espClient);
 long lastMsg = 0;
 char msg[50];
-<<<<<<< HEAD
-int val = 0, tag = 0;
-int index, state_led, Time;
-=======
 int val = 0, tag, state, spd;
 
->>>>>>> b3bfb8d666566b78960ca2df6111de72a143977f
 
 void setup_wifi() {
 
@@ -82,13 +77,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
     msg += (char)payload[i++];
   }
   Serial.println(msg);
-<<<<<<< HEAD
-  spilt(msg);
-  //int val = msg.toInt();
-  //digitalWrite(D0,val);
-=======
   split(msg);
->>>>>>> b3bfb8d666566b78960ca2df6111de72a143977f
 
  
   // Switch on the LED if an 1 was received as first character
@@ -148,9 +137,9 @@ void setup() {
   pinMode(D0, OUTPUT); //light 1
   pinMode(D1, OUTPUT); //light 2
   pinMode(D2, OUTPUT); //light 3
-  pinMode(D3, INPUT); // lazor input
 }
 
+unsigned long pretime, thistime;
 
 void loop() {
 
@@ -158,32 +147,18 @@ void loop() {
     reconnect();
   }
   client.loop();
+  pretime = millis();
+  while(tag == 1){
+    thistime = millis();
+     if(val == 1){
+        digitalWrite(D0, 1);
+     }
+     String val_str = String(val);
+     char val_char[10];
+     val_str.toCharArray(val_char, 10);
+     client.publish("test_input", val_char);
+     client.loop();
+     delay(1000);
+  }
   
-}
-int Gameplay(){
-   unsigned long pretime, thistime;
-   pretime = millis();
-   while(1){
-    thistime  = millis();
-    if(pretime-thistime>=){
-    client.publish("test_input", "-1");
-      break;
-    }
-    else if(digitalRead(D3)==1){
-    client.publish("test_input", "1");
-    }
-   }
-}
-
-void spilt(String txt){
-  String txt2, txt3, txt4;
-  txt2 = txt.substring(0, 2);
-  Serial.println(txt4);
-  txt3 = txt.substring(3, 5);
-  Serial.println(txt2);
-  txt4 = txt.substring(6);
-  Serial.println(txt3);
-  index = txt2.toInt();
-  state_led = txt3.toInt();
-  Time = txt4.toInt();
 }
