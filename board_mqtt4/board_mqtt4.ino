@@ -138,37 +138,21 @@ void loop() {
   client.loop();
   if(index_==1){
       if(state_led==1){
-        Gameplay1();
+        Gameplay(1);
       }
       else if(state_led==2){
-        Gameplay2();
+        Gameplay(2);
       }
   }
 }
-void Gameplay1(){
-   unsigned long pretime, thistime;
-   digitalWrite(D0, 1);
-   pretime = millis();
-   while(1){
-    thistime  = millis();
-    if(pretime-thistime>=Time){
-      digitalWrite(D0, 0);
-      client.publish("test_input", "-1");
-      break;
-    }
-    else if(digitalRead(D3)==1){
-      digitalWrite(D0, 0);
-      client.publish("test_input", "1");
-      break;
-    }
-   }
-}
 
-void Gameplay2(){
+void Gameplay(int value){
+   char value_c[10];
    unsigned long pretime, thistime;
+   String value_s = String(value);
    digitalWrite(D1, 1);
    pretime = millis();
-   while(1){
+   while(true){
     thistime  = millis();
     if(pretime-thistime>=Time){
       digitalWrite(D0, 0);
@@ -177,7 +161,8 @@ void Gameplay2(){
     }
     else if(digitalRead(D3)==1){
       digitalWrite(D0, 0);
-      client.publish("test_input", "2");
+      value_s.toCharArray(value_c, 10);
+      client.publish("test_input", value_c);
       break;
     }
    }
