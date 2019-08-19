@@ -12,6 +12,7 @@ function con(){
     }
     mysqli_set_charset($link,"utf8");
     return $link;
+    echo "string";
 }
 
 function conn() {
