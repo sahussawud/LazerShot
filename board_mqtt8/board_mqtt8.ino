@@ -37,7 +37,7 @@ PubSubClient client(espClient);
 long lastMsg = 0;
 char msg[50];
 int val = 0, tag = 0;
-int index_, state_led, Time, Light_D0, Light_D1;
+int index_, state_led, Time;
 
 void setup_wifi() {
 
@@ -140,8 +140,6 @@ void loop() {
   }
   client.loop();
   if(index_==1){
-      Light_D0 = digitalWrite(D0, 1);
-      Light_D1 = digitalWrite(D1, 1);
       if(state_led==1){
         Gameplay(1);
         index_ = 0;
