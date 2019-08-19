@@ -158,6 +158,9 @@ void Gameplay(){
    while(1){
     delay(1);
     thistime  = millis();
+    Serial.print(thistime-pretime);
+    Serial.print(" : ");
+    Serial.println(Time);
     if(thistime-pretime>=Time){
       digitalWrite(D0, 1);
       client.publish("test_input", "-1");
@@ -181,6 +184,9 @@ void Gameplay2(){
    while(1){
     delay(1);
     thistime  = millis();
+    Serial.print(thistime-pretime);
+    Serial.print(" : ");
+    Serial.println(Time);
     if(thistime-pretime>=Time){
       digitalWrite(D1, 1);
       client.publish("test_input", "-1");
