@@ -1,36 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>LASERGUN</title>
+	<title>Lasershot</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<style>
+		@import url('./css/style.css');
+	</style>
 	<!-- section name "BG" -->
 	<div class="stars"></div>
 	<div class="twinkling"></div>
 </head>
 <body>
-	<div class="container-fluid">
+	<div class="container">
+		<br><br><br><br>
 		<div class="row text-center">
-			<div class="logo">
-				<img class="logo" src="./img/logo.png" width="400" height="200">
+			<div class="img-responsive">
+				<img class="logo" src="./img/laser8b.png">
 			</div>
 		</div>
-
-		<div class="row text-center h-100 row align-items-center">
-			<div class="col">
-				<button>
-					MODEGAME 
-					<span></span>
-					<span></span>
-					<span></span>
-					<span></span>
-				</button>
+		<div class="row text-center">
+			<div class="col-md-4">
+				<div class="dropdown">
+					<button class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						MODEGAME 
+						<span></span>
+						<span></span>
+						<span></span>
+						<span></span>
+					</button>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						<button class="dropdown-item">TRAINING</button>
+						<button class="dropdown-item">SURVIVAL</button>
+					</div>
+				</div>
 			</div>
 			<br><br><br><br>	
-			<div class="col">
-				<button>
+			<div class="col-md-4">
+				<button onclick="window.location.href='https://www.it.kmitl.ac.th/~it61070245/lasershot/profile.html'">
 					PROFILE 
 					<span></span>
 					<span></span>
@@ -39,9 +47,9 @@
 				</button>
 			</div>
 			<br><br><br><br>	
-			<div class="col">
-				<button>
-					HALL OF FRAME
+			<div class="col-md-4">
+				<button onclick="window.location.href='https://www.it.kmitl.ac.th/~it61070245/lasershot/leaderboard.html'">
+					LEADERBOARD
 					<span></span>
 					<span></span>
 					<span></span>
@@ -50,12 +58,13 @@
 			</div>
 			<br><br><br><br>
 		</div>
-		<!-- <div class="button">
-			<button type="button" class="btn btn-light btn-lg">MODEGAME</button>
-			<button type="button" class="btn btn-light btn-lg">PROFILE</button>
-			<button type="button" class="btn btn-light btn-lg">HALL OF FRAME</button>
-		</div> -->
 	</div>
+
+	<script>
+		function myFunction() {
+			alert("Coming Soooooooooooooooooooon!");
+		}
+	</script>
 	<section>
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
