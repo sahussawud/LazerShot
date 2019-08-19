@@ -140,6 +140,8 @@ void loop() {
       if(state_led==1){
         Gameplay(1);
         index_ = 0;
+        Serial.print("index_ : ");
+        Serial.println(index_);
       }
       else if(state_led==2){
         Gameplay(2);
