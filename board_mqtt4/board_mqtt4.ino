@@ -38,7 +38,6 @@ long lastMsg = 0;
 char msg[50];
 int val = 0, tag = 0;
 int index_, state_led, Time;
-unsigned long pretime, thistime;
 
 void setup_wifi() {
 
@@ -132,69 +131,38 @@ void setup() {
 
 
 void loop() {
+
   if (!client.connected()) {
     reconnect();
   }
   client.loop();
-<<<<<<< HEAD
-  if(index_ == 1){
-      if(state_led == 1){
-        Gameplay();
-=======
   if(index_==1){
       if(state_led==1){
-        Gameplay1();
->>>>>>> d01d35ba93a67e94bd33e7277c9b77d8e61d219c
+        Gameplay(1);
       }
-      else if(state_led == 2){
-        Gameplay2();
+      else if(state_led==2){
+        Gameplay(2);
       }
   }
 }
-<<<<<<< HEAD
 
-void Gameplay(){
-=======
-void Gameplay1(){
+void Gameplay(int value){
+   char value_c[10];
    unsigned long pretime, thistime;
->>>>>>> d01d35ba93a67e94bd33e7277c9b77d8e61d219c
-   digitalWrite(D0, 1);
-   pretime = millis();
-   while(1){
-    delay(1);
-    thistime  = millis();
-    if(thistime-pretime>=Time){
-      digitalWrite(D0, 0);
-      client.publish("test_input", "-1");
-      break;
-    }
-    else if(digitalRead(D3)==1){
-      Serial.println("Hit");
-      digitalWrite(D0, 0);
-      client.publish("test_input", "1");
-      break;
-    }
-   }
-   index_ = 0;
-   state_led = 0;
-   Time = 0;
-}
-
-void Gameplay2(){
+   String value_s = String(value);
    digitalWrite(D1, 1);
    pretime = millis();
-   while(1){
+   while(true){
     thistime  = millis();
-    if(thistime-pretime>=Time){
-      Serial.println("Hit");
-      digitalWrite(D1, 0);
+    if(pretime-thistime>=Time){
+      digitalWrite(D0, 0);
       client.publish("test_input", "-1");
       break;
     }
     else if(digitalRead(D3)==1){
-      Serial.println("Hit");
-      digitalWrite(D1, 0);
-      client.publish("test_input", "2");
+      digitalWrite(D0, 0);
+      value_s.toCharArray(value_c, 10);
+      client.publish("test_input", value_c);
       break;
     }
    }
@@ -203,22 +171,12 @@ void Gameplay2(){
 void spilt(String txt){
   String txt2, txt3, txt4;
   txt2 = txt.substring(0, 2);
-<<<<<<< HEAD
-  Serial.println(txt2);
-  txt3 = txt.substring(3, 5);
-  Serial.println(txt3);
-  txt4 = txt.substring(6);
-=======
   txt3 = txt.substring(3, 5);
   txt4 = txt.substring(6);
   Serial.println(txt2);
   Serial.println(txt3);
->>>>>>> d01d35ba93a67e94bd33e7277c9b77d8e61d219c
   Serial.println(txt4);
   index_ = txt2.toInt();
   state_led = txt3.toInt();
   Time = txt4.toInt();
-  Serial.println(index_);
-  Serial.println(state_led);
-  Serial.println(Time);
 }

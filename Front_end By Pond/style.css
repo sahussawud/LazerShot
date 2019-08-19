@@ -9,7 +9,8 @@ body{
     background:#333;
     font-family: 'Play', sans-serif;
 }
-#button_time{
+.row{
+  margin-top: 10px;
 }
 #sub_mqtt{
     text-align: center;
@@ -33,7 +34,7 @@ body{
     font-family: 'Pacifico', cursive;
 }
 #timer{
-    /*text-align: center;*/
+    text-align: center;
     top:200px;
     color: white;
     font-size: 50px;
