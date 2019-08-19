@@ -288,7 +288,9 @@
             second = 0;
             minute = 0;
             state = 0;
+            player_hp = 100;
             document.getElementById("timer").innerHTML = "00:00";
+            document.getElementById("number").innerHTML = 1 + "-" + 1;
         }
         if (msg == 'S' && state == 0) {
             myVar = setInterval(myTimer, 1000);
@@ -321,6 +323,7 @@
                     time_ = document.getElementById("timer").innerHTML;
                     alert("Score: "+score+"\n"+"Time: "+time_);
                     player_hp = 100;
+                    document.getElementById("number").innerHTML = 1 + "-" + 1;
                     start('R');
                     send('R');
                 }
@@ -331,11 +334,11 @@
                 document.getElementById("sub_mqtt").style.color = "lightblue";
                 document.getElementById("number").innerHTML = number + "-" + random_heal_or_enemy;
                 document.getElementById("player_hp").innerHTML = "HP: "+player_hp+"%";
-                if (number < 10)
-                    number = "0"+number;
-                if (random_heal_or_enemy < 10)
-                    random_heal_or_enemy = "0"+random_heal_or_enemy;
-                send("01"+","+"01"+","+"1500");
+                // if (number < 10)
+                //     number = "0"+number;
+                // if (random_heal_or_enemy < 10)
+                //     random_heal_or_enemy = "0"+random_heal_or_enemy;
+                // send("01"+","+"01"+","+"1500");
             }
         }
     }

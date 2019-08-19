@@ -7,10 +7,12 @@
 
   client.connect({onSuccess:onConnect});
   var score = 0;
-  var topic_sup = "test_input";
+  var topic_sup = "test_output";
   var topic_pub = "test_output";
+  var mq_to_msg;
   function onConnect() {
     console.log("onConnect");
+
     client.subscribe(topic_sup);
   }
 
@@ -38,8 +40,15 @@
   }
 
   function onMessageArrived(message) {
-    console.log("onMessageArrived:"+message.payloadString);
-    score += Number(message.payloadString);
+    mq_to_msg = message.payloadString;
+    console.log("onMessageArrived:"+mq_to_msg);
+    mq_to_msg = Number(mq_to_msg);
+    if (mq_to_msg == -1){
+      player_hp -= 5;
+    }
+    if (mq_to_msg == 1){
+      score += mq_to_msg;
+    }
     document.getElementById("sub_mqtt").innerHTML = "Score: "+score;
   }
 </script>

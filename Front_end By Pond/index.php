@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-include("mqtt_test.php")
+include("mqtt_test.php");
 ?>
 
 <!DOCTYPE html>
@@ -26,6 +26,8 @@ include("mqtt_test.php")
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
     <script src="./script.js"></script>
+
+
 </head>
 <body>
     <div class="container">
@@ -45,13 +47,6 @@ include("mqtt_test.php")
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600,800,900" rel="stylesheet" type="text/css">
     <div id="container"></div>
 
-    <div id="timer">00:00</div>
-    <br><br>
-    <div id="button_time">
-        <div class="col-md-1"> <a onclick="start('S')" class="btn btn-sm animated-button thar-two">Start</a> </div>
-        <div class="col-md-1"> <a onclick="start('P')" class="btn btn-sm animated-button thar-two">Pause</a> </div>
-        <div class="col-md-1"> <a onclick="start('R'), send('R')" class="btn btn-sm animated-button thar-two">Reset</a> </div>
-    </div>
     <!-- ส่วนของ MQTT ของอ๋อง -->
     <br><br>
     <div id="button_time">
@@ -59,11 +54,21 @@ include("mqtt_test.php")
         <button class="button" onclick="send('-1')">-</button>
     </div>
     <br><br>
+
     <!-- การส่งค่าขึ้น MQTT -->
     <div id="button_time">
         <input type="text" id="score" placeholder="Score" required></p>
         <button class="button" onclick="send('S')">send</button>
     </div>
+
+    <br><br>
+    <div id="button_time">
+        <div class="col-md-1"> <a onclick="start('S')" class="btn btn-sm animated-button thar-two">Start</a> </div>
+        <div class="col-md-1"> <a onclick="start('P')" class="btn btn-sm animated-button thar-two">Pause</a> </div>
+        <div class="col-md-1"> <a onclick="start('R'), send('R')" class="btn btn-sm animated-button thar-two">Reset</a> </div>
+    </div>
+    <br><br><br>
+    <div id="timer">00:00</div>
     <p id="sub_mqtt">Score: 0</p>
     <p id="player_hp">HP: 100%</p>
     <p id="number">0-0</p>
