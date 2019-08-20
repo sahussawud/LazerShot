@@ -183,6 +183,9 @@ void Gameplay(){
 }
 
 void Gameplay2(){
+   digitalWrite(D4, 1);
+   delay(100);
+   digitalWrite(D4, 0);
    digitalWrite(D1, 0);
    pretime = millis();
    while(1){
