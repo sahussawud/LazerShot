@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+session_start();
 include("mqtt_test.php");
 ?>
 
@@ -68,6 +69,10 @@ include("mqtt_test.php");
         <div class="col-md-1"> <a onclick="start('R'), send('R')" class="btn btn-sm animated-button thar-two">Reset</a> </div>
     </div>
     <br><br><br>
+    <?php
+    echo '<p id="sub_mqtt">'.$_SESSION['line_name'].'</p>';
+    echo '<img style="width:100px;" src="'.$_SESSION['picture'].'" /><br>';
+    ?>
     <div id="timer">00:00</div>
     <p id="sub_mqtt">Score: 0</p>
     <p id="player_hp">HP: 100%</p>

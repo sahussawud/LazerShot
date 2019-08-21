@@ -12,6 +12,13 @@ body{
 .row{
   margin-top: 10px;
 }
+#Line_name{
+    text-align: center;
+    top:200px;
+    color: white;
+    font-size: 50px;
+    font-family: 'Pacifico', cursive;
+}
 #sub_mqtt{
     text-align: center;
     top:20px;

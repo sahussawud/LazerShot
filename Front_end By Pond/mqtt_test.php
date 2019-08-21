@@ -1,18 +1,17 @@
 <script src="paho.javascript-1.0.3/paho-mqtt.js"></script>
 <script>
-  var clientid = Math.floor(Math.random() * (5000 - 1000)) + 1000;
+  var clientid = Math.floor(Math.random() * (500000 - 100000)) + 100000;
   client = new Paho.MQTT.Client("broker.mqttdashboard.com", Number(8000), String(clientid));
   client.onConnectionLost = onConnectionLost;
   client.onMessageArrived = onMessageArrived;
 
   client.connect({onSuccess:onConnect});
   var score = 0;
-  var topic_sup = "test_output";
+  var topic_sup = "test_input";
   var topic_pub = "test_output";
   var mq_to_msg;
   function onConnect() {
     console.log("onConnect");
-
     client.subscribe(topic_sup);
   }
 
@@ -43,12 +42,13 @@
     mq_to_msg = message.payloadString;
     console.log("onMessageArrived:"+mq_to_msg);
     mq_to_msg = Number(mq_to_msg);
-    if (mq_to_msg == -1){
-      player_hp -= 5;
+    // check_score(mq_to_msg);
+    if (isNumeric(mq_to_msg)){
+      console.log(mq_to_msg);
     }
-    if (mq_to_msg == 1){
-      score += mq_to_msg;
-    }
-    document.getElementById("sub_mqtt").innerHTML = "Score: "+score;
+  }
+
+  function test(msg){
+    console.log(msg);
   }
 </script>
