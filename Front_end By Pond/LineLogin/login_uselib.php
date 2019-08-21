@@ -63,7 +63,10 @@ if(isset($_SESSION['ses_login_userData_val']) && $_SESSION['ses_login_userData_v
     echo "Line UserID: ".$lineUserData['sub']."<br>";
     echo "Line Display Name: ".$lineUserData['name']."<br>";
     echo '<img style="width:100px;" src="'.$lineUserData['picture'].'" /><br>';
+    $_SESSION['line_name'] = $lineUserData['name'];
+    $_SESSION['picture'] = $lineUserData['picture'];
     save_name($lineUserData['sub'], $lineUserData['name'], $lineUserData['picture']);
+    header('Location: ../index.php');
 }
 
 
@@ -99,24 +102,27 @@ echo "<hr>";
 if($LineLogin->verifyToken($accToken)){
 ?>
 <form method="post">
-<button type="submit" name="lineLogout">LINE Logout</button>
+<button type="submit" name="form" value="lineLogout">LINE Logout</button>
 </form>
 <?php }else{ ?>
 <form method="post">
-<button type="submit" name="lineLogin">LINE Login</button>
+<button type="submit" name="form" value="lineLogin">LINE Login</button>
 </form>
 <?php } ?>
 <?php
-if(isset($_POST['lineLogin'])){
+$data = $_POST;
+if($data['form'] == 'lineLogin'){
+    $_SESSION['login_status'] = 1;
     $LineLogin->authorize();
     exit;
 }
-if(isset($_POST['lineLogout'])){
+if($data['form'] == 'lineLogout'){
     unset(
         $_SESSION['ses_login_accToken_val'],
         $_SESSION['ses_login_refreshToken_val'],
         $_SESSION['ses_login_userData_val']
     );
+    $_SESSION['login_status'] = 0;
     echo "<hr>";
     if($LineLogin->revokeToken($accToken)){
         echo "Logout Line Success<br>";
