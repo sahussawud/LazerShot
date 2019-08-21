@@ -167,7 +167,7 @@ void reconnect() {
     if (client.connect(clientId.c_str())) {
       Serial.println("connected");
       // Once connected, publish an announcement...
-      client.publish("test_input", "connected"); //<------------------- topic publish
+      client.publish("test_input", "connected16"); //<------------------- topic publish
       // ... and resubscribe
       client.subscribe("test_output"); //<--------------------- topic subscribe
     } else {
@@ -201,7 +201,7 @@ void loop() {
     reconnect();
   }
   client.loop();
-  if(index_ == 2){
+  if(index_ == 16){
       if(state_led == 1){
         Gameplay();
       }
@@ -216,7 +216,8 @@ void loop() {
 
 void Gameplay(){
    tone(D6, NOTE_G4);
-   delay(100);
+   delay(500);
+   tone(D6, 0);
    digitalWrite(D0, 0);
    pretime = millis();
    while(1){
@@ -237,7 +238,8 @@ void Gameplay(){
         tone(D6, 0);
         delay(100);
         tone(D6, NOTE_A4);
-        delay(100)
+        delay(100);
+        tone(D6, 0);
       Serial.println("Hit");
       client.publish("test_input", "1");
       break;
@@ -250,11 +252,8 @@ void Gameplay(){
 
 void Gameplay2(){
    tone(D6, NOTE_G4);
-   delay(100);
-   digitalWrite(D0, 0);
-   digitalWrite(D6, 1);
-   delay(1000);
-   digitalWrite(D6, 0);
+   delay(500);
+   tone(D6, 0);
    digitalWrite(D1, 0);
    pretime = millis();
    while(1){
@@ -276,7 +275,8 @@ void Gameplay2(){
         tone(D6, 0);
         delay(100);
         tone(D6, NOTE_A4);
-        delay(100)
+        delay(100);
+        tone(D6, 0);
       client.publish("test_input", "2");
       break;
     }
