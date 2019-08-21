@@ -144,16 +144,6 @@ void callback(char* topic, byte* payload, unsigned int length) {
   //int val = msg.toInt();
   //digitalWrite(D0,val);
 
- 
-  // Switch on the LED if an 1 was received as first character
-  if ((char)payload[0] == '1') {
-    digitalWrite(BUILTIN_LED, LOW);   // Turn the LED on (Note that LOW is the voltage level
-    // but actually the LED is on; this is because
-    // it is active low on the ESP-01)
-  } else {
-    digitalWrite(BUILTIN_LED, HIGH);  // Turn the LED off by making the voltage HIGH
-  }
-
 }
 
 void reconnect() {
@@ -167,7 +157,7 @@ void reconnect() {
     if (client.connect(clientId.c_str())) {
       Serial.println("connected");
       // Once connected, publish an announcement...
-      client.publish("test_input", "connected16"); //<------------------- topic publish
+      client.publish("test_input", "connected10"); //<------------------- topic publish
       // ... and resubscribe
       client.subscribe("test_output"); //<--------------------- topic subscribe
     } else {
@@ -201,7 +191,7 @@ void loop() {
     reconnect();
   }
   client.loop();
-  if(index_ == 16){
+  if(index_ == 10){
       if(state_led == 1){
         Gameplay();
       }
@@ -216,7 +206,7 @@ void loop() {
 
 void Gameplay(){
    tone(D6, NOTE_G4);
-   delay(500);
+   delay(100);
    tone(D6, 0);
    digitalWrite(D0, 0);
    pretime = millis();
@@ -252,7 +242,7 @@ void Gameplay(){
 
 void Gameplay2(){
    tone(D6, NOTE_G4);
-   delay(500);
+   delay(100);
    tone(D6, 0);
    digitalWrite(D1, 0);
    pretime = millis();
@@ -281,6 +271,9 @@ void Gameplay2(){
       break;
     }
    }
+   index_ = 0;
+   state_led = 0;
+   Time = 0;
 }
 
 void spilt(String txt){

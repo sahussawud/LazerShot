@@ -217,6 +217,7 @@ void loop() {
 void Gameplay(){
    tone(D6, NOTE_G4);
    delay(100);
+   tone(D6, 0);
    digitalWrite(D0, 0);
    pretime = millis();
    while(1){
@@ -238,6 +239,7 @@ void Gameplay(){
         delay(100);
         tone(D6, NOTE_A4);
         delay(100)
+        tone(D6, 0);
       Serial.println("Hit");
       client.publish("test_input", "1");
       break;
@@ -251,11 +253,8 @@ void Gameplay(){
 void Gameplay2(){
    tone(D6, NOTE_G4);
    delay(100);
+   tone(D6, 0);
    digitalWrite(D0, 0);
-   digitalWrite(D6, 1);
-   delay(1000);
-   digitalWrite(D6, 0);
-   digitalWrite(D1, 0);
    pretime = millis();
    while(1){
     delay(1);
@@ -277,10 +276,14 @@ void Gameplay2(){
         delay(100);
         tone(D6, NOTE_A4);
         delay(100)
+        tone(D6, 0);
       client.publish("test_input", "2");
       break;
     }
    }
+   index_ = 0;
+   state_led = 0;
+   Time = 0;
 }
 
 void spilt(String txt){
