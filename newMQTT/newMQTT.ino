@@ -188,19 +188,22 @@ void loop() {
     reconnect();
   }
   client.loop();
-  if(index_ == 12){
+  if(index_ == 12){               //<-----------------------Normal mode
+      Serial.println("Start Index 12");
       if(state_led == 1){
-        Gameplay();
+        //Gameplay();
+        game(1);
       }
       else if(state_led == 2){
-        Gameplay2();
+        //Gameplay2();
+        game(2);
       }
   }
-  else if(index_ == 99){
+  else if(index_ == 99){           //<-----------------------Bonus time mode
     Serial.println("Start Bonus");
     digitalWrite(D0, 0);
     tone(D6, NOTE_G4);
-    delay(3000);
+    delay(2000);
     while(Time != 9999){
       bonus();
       Serial.println("End loop bonus");
@@ -215,153 +218,111 @@ void loop() {
 }
 
 void bonus(){
-  Serial.print("Bonus");
+  Serial.println("Bonus");
   digitalWrite(D0, 1);
   tone(D6, 0);
   while(state_led == 0){
     client.loop();
   }
-  if(state_led == 1){
-    tone(D6, NOTE_G4);
-    delay(100);
-    tone(D6, 0);
-    pretime = millis();
-    while(true){
-      digitalWrite(D0, 0);
-      delay(1);
-      thistime = millis();
-      if(thistime-pretime >= 3000){
-        digitalWrite(D0, 1);
-        client.publish("test_input", "0");
-        break;
-      }
-      else if(digitalRead(D5) == 1){
-        digitalWrite(D0, 1);
-        tone(D6, NOTE_A4);
-        delay(100);
-        tone(D6, 0);
-        delay(100);
-        tone(D6, NOTE_A4);
-        delay(100);
-        tone(D6, 0);
-        client.publish("test_input", "1");
-        Serial.print("---------> Hit");
-        break;
-      }
-    }
-  }
+  if(state_led == 1)
+    game_bonus();
+  else
+    game_bonus();
+}
 
-  else if(state_led == 2){
-    tone(D6, NOTE_G4);
-    delay(100);
-    tone(D6, 0);
-    pretime = millis();
-    while(true){
-      digitalWrite(D1, 0);
-      delay(1);
-      thistime = millis();
-      if(thistime-pretime >= 1000){
-        digitalWrite(D1, 1);
-        client.publish("test_input", "0");
-        break;
-      }
-      else if(digitalRead(D5) == 1){
-        digitalWrite(D1, 1);
-        tone(D6, NOTE_A4);
-        delay(100);
-        tone(D6, 0);
-        delay(100);
-        tone(D6, NOTE_A4);
-        delay(100);
-        tone(D6, 0);
-        client.publish("test_input", "2");
-        Serial.print("---------> Hit");
-        break;
-      }
-    }
+void led(int num){
+  if(num == 1){
+    digitalWrite(D0, 0);
+  }
+  else if(num == 2){
+    digitalWrite(D1, 0);
   }
 }
 
-void Gameplay(){
-   tone(D6, NOTE_G4);
-   delay(100);
-   tone(D6, 0);
-   digitalWrite(D0, 0);
-   pretime = millis();
-   while(1){
+/*void pub_input(){
+  if(state_led != 99)
+    client.publish("test_input", "-1");
+  else
+    client.publish("test_input", "0");
+}*/
+
+void game_bonus(){
+  Serial.println("Game Bonus");
+  tone(D6, NOTE_G4);
+  delay(100);
+  tone(D6, 0);
+  pretime = millis();
+  while(true){
+     led(state_led);
+     delay(1);
+     thistime = millis();
+     if(thistime-pretime >= 2000){
+       digitalWrite(D0, 1);
+       digitalWrite(D1, 1);
+       client.publish("test_input", "0");
+       break;
+     }
+     else if(digitalRead(D5) == 1){
+       digitalWrite(D0, 1);
+       digitalWrite(D1, 1);
+       audio();
+       Serial.println("---Hit---");
+       if(state_led == 1)
+          client.publish("test_input", "1");
+       else if(state_led == 2)
+          client.publish("test_input", "2");
+       break;
+     }
+  }
+}
+
+void game(int point){
+  String point_str = String(point);
+  char point_chr[2]; 
+  tone(D6, NOTE_G4);
+  delay(100);
+  tone(D6, 0);
+  led(point);
+  pretime = millis();
+  while(true){
     delay(1);
-    thistime  = millis();
-//    Serial.print(thistime-pretime);
-//    Serial.print(" : ");
-//    Serial.println(Time);
-    if(thistime-pretime>=Time){
+    thistime = millis();
+    if(thistime-pretime >= Time){
       digitalWrite(D0, 1);
+      digitalWrite(D1, 1);
       client.publish("test_input", "-1");
       break;
     }
-    else if(digitalRead(D5)==1){
-        digitalWrite(D0, 1);
-        tone(D6, NOTE_A4);
-        delay(100);
-        tone(D6, 0);
-        delay(100);
-        tone(D6, NOTE_A4);
-        delay(100);
-        tone(D6, 0);
-      Serial.println("Hit");
-      client.publish("test_input", "1");
+    else if(digitalRead(D5) == 1){
+      digitalWrite(D0, 1);
+      digitalWrite(D1, 1);
+      audio();
+      Serial.println("---Hit---");
+      point_str.toCharArray(point_chr, 2);
+      client.publish("test_input", point_chr);
       break;
     }
-   }
-   index_ = 0;
-   state_led = 0;
-   Time = 0;
+  }
+  index_ = 0;
+  state_led = 0;
+  Time = 0;
 }
 
-void Gameplay2(){
-   tone(D6, NOTE_G4);
-   delay(100);
-   tone(D6, 0);
-   digitalWrite(D1, 0);
-   pretime = millis();
-   while(1){
-    delay(1);
-    thistime  = millis();
-//    Serial.print(thistime-pretime);
-//    Serial.print(" : ");
-//    Serial.println(Time);
-    if(thistime-pretime>=Time){
-      digitalWrite(D1, 1);
-      client.publish("test_input", "-1");
-      break;
-    }
-    else if(digitalRead(D5)==1){
-      Serial.println("Hit");
-      digitalWrite(D1, 1);
-        tone(D6, NOTE_A4);
-        delay(100);
-        tone(D6, 0);
-        delay(100);
-        tone(D6, NOTE_A4);
-        delay(100);
-        tone(D6, 0);
-      client.publish("test_input", "2");
-      break;
-    }
-   }
-   index_ = 0;
-   state_led = 0;
-   Time = 0;
+void audio(){
+  tone(D6, NOTE_A4);
+  delay(100);
+  tone(D6, 0);
+  delay(100);
+  tone(D6, NOTE_A4);
+  delay(100);
+  tone(D6, 0);
 }
 
 void spilt(String txt){
   String txt2, txt3, txt4;
   txt2 = txt.substring(0, 2);
-  Serial.println(txt2);
   txt3 = txt.substring(3, 5);
-  Serial.println(txt3);
   txt4 = txt.substring(6);
-  Serial.println(txt4);
   index_ = txt2.toInt();
   state_led = txt3.toInt();
   Time = txt4.toInt();
