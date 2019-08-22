@@ -194,7 +194,7 @@ void loop() {
       if(state_led == 1){
         game(1);
       }
-      else if(bonus==1)&&(state_led == 2){
+      else if((bonus==1)&&(state_led == 2)){
         gamebonus();
       }
       else if(state_led == 2){
