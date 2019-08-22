@@ -154,7 +154,7 @@ void reconnect() {
     if (client.connect(clientId.c_str())) {
       Serial.println("connected");
       // Once connected, publish an announcement...
-      client.publish("test_input", "connected_5"); //<------------------- topic publish
+      client.publish("test_input", "connected_4"); //<------------------- topic publish
       // ... and resubscribe
       client.subscribe("test_output"); //<--------------------- topic subscribe
     } else {
@@ -188,8 +188,8 @@ void loop() {
     reconnect();
   }
   client.loop();
-  if(index_ == 5){               //<-----------------------Normal mode
-      Serial.println("Start Index 5");
+  if(index_ == 4){               //<-----------------------Normal mode
+      Serial.println("Start Index 4");
       if(state_led == 1){
         game(1);
       }
@@ -206,7 +206,7 @@ void loop() {
       digitalWrite(D0, 1);
       tone(D6, 0);
       client.loop();
-      if(index_ == 5){            //--------------------------index bonus    
+      if(index_ == 4){            //--------------------------index bonus    
         bonus();
         Serial.println("End loop bonus");
         index_ = 0;
@@ -232,11 +232,6 @@ void bonus(){
     client.loop();
   }
   game_bonus();
-  
-//  if(state_led == 1)
-//    game_bonus();
-//  else
-//    game_bonus();
 }
 
 void led(int num){
@@ -248,12 +243,6 @@ void led(int num){
   }
 }
 
-/*void pub_input(){
-  if(state_led != 99)
-    client.publish("test_input", "-1");
-  else
-    client.publish("test_input", "0");
-}*/
 
 void game_bonus(){
   Serial.println("Game Bonus");
@@ -275,10 +264,6 @@ void game_bonus(){
        audio();
        Serial.println("---Hit---");
        client.publish("test_input", "2");
-//       if(state_led == 1)
-//          client.publish("test_input", "-1");
-//       else if(state_led == 2)
-//          client.publish("test_input", "2");
        break;
      }
   }
