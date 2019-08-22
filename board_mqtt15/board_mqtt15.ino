@@ -209,19 +209,18 @@ void loop() {
       if(index_ == 4){            //--------------------------index bonus    
         bonus();
         Serial.println("End loop bonus");
-        index_ = 0;
-        state_led = 0;
-        Time = 0;
+        setzero();
       }
     }
+    digitalWrite(D0, 1);
+    tone(D6, 0);
+    setzero();
     digitalWrite(D2, 0);
     delay(1000);
     digitalWrite(D2, 1);
     Serial.println("End Bonus");
   }
-  index_ = 0;
-  state_led = 0;
-  Time = 0;
+  setzero();
 }
 
 void bonus(){
@@ -243,6 +242,11 @@ void led(int num){
   }
 }
 
+void setzero(){
+  index_ = 0;
+  state_led = 0;
+  Time = 0;
+}
 
 void game_bonus(){
   Serial.println("Game Bonus");
@@ -296,9 +300,7 @@ void game(int point){
       break;
     }
   }
-  index_ = 0;
-  state_led = 0;
-  Time = 0;
+  setzero();
 }
 
 void audio(){
@@ -319,7 +321,7 @@ void spilt(String txt){
   index_ = txt2.toInt();
   state_led = txt3.toInt();
   Time = txt4.toInt();
-  Serial.println(index_);
-  Serial.println(state_led);
-  Serial.println(Time);
+//  Serial.println(index_);
+//  Serial.println(state_led);
+//  Serial.println(Time);
 }
