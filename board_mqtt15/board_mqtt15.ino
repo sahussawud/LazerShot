@@ -231,10 +231,12 @@ void bonus(){
   while(state_led == 0){
     client.loop();
   }
-  if(state_led == 1)
-    game_bonus();
-  else
-    game_bonus();
+  game_bonus();
+  
+//  if(state_led == 1)
+//    game_bonus();
+//  else
+//    game_bonus();
 }
 
 void led(int num){
@@ -263,21 +265,20 @@ void game_bonus(){
      led(state_led);
      delay(1);
      thistime = millis();
-     if(thistime-pretime >= 2000){
-       digitalWrite(D0, 1);
+     if(thistime-pretime >= Time){
        digitalWrite(D1, 1);
        client.publish("test_input", "0");
        break;
      }
      else if(digitalRead(D5) == 1){
-       digitalWrite(D0, 1);
        digitalWrite(D1, 1);
        audio();
        Serial.println("---Hit---");
-       if(state_led == 1)
-          client.publish("test_input", "-1");
-       else if(state_led == 2)
-          client.publish("test_input", "2");
+       client.publish("test_input", "2");
+//       if(state_led == 1)
+//          client.publish("test_input", "-1");
+//       else if(state_led == 2)
+//          client.publish("test_input", "2");
        break;
      }
   }
