@@ -91,7 +91,6 @@
 #define NOTE_CS8 4435
 #define NOTE_D8  4699
 #define NOTE_DS8 4978
-int bonus;
 
 const char* ssid = "lab_startup";
 const char* password = "56841725";
@@ -142,9 +141,6 @@ void callback(char* topic, byte* payload, unsigned int length) {
   }
   Serial.println(msg);
   spilt(msg);
-  //int val = msg.toInt();
-  //digitalWrite(D0,val);
-
 }
 
 void reconnect() {
@@ -158,11 +154,7 @@ void reconnect() {
     if (client.connect(clientId.c_str())) {
       Serial.println("connected");
       // Once connected, publish an announcement...
-<<<<<<< HEAD
-      client.publish("test_input", "connected5"); //<------------------- topic publish
-=======
       client.publish("test_input", "connected12"); //<------------------- topic publish
->>>>>>> 86b4ee99b487c8642e3e5578e94a7594997d8b90
       // ... and resubscribe
       client.subscribe("test_output"); //<--------------------- topic subscribe
     } else {
@@ -196,11 +188,7 @@ void loop() {
     reconnect();
   }
   client.loop();
-<<<<<<< HEAD
-  if(index_ == 5){
-=======
   if(index_ == 12){
->>>>>>> 86b4ee99b487c8642e3e5578e94a7594997d8b90
       if(state_led == 1){
         Gameplay();
       }
@@ -208,18 +196,90 @@ void loop() {
         Gameplay2();
       }
   }
-  if(index_ == 99){
-   tone(D6, NOTE_G4);
-   delay(100);
-   tone(D6, 0);
-   digitalWrite(D0, 0);
-   delay(1000)
-   digitalWrite(D0, 1);
-   bonus = 1;
+  else if(index_ == 99){
+    Serial.println("Start Bonus");
+    digitalWrite(D0, 0);
+    tone(D6, NOTE_G4);
+    delay(3000);
+    while(Time != 9999){
+      bonus();
+      Serial.println("End loop bonus");
+      index_ = 0;
+      state_led = 0;
+    }
+    Serial.println("End Bonus");
   }
-   index_ = 0;
-   state_led = 0;
-   Time = 0;
+  index_ = 0;
+  state_led = 0;
+  Time = 0;
+}
+
+void bonus(){
+  Serial.print("Bonus");
+  digitalWrite(D0, 1);
+  tone(D6, 0);
+  while(state_led == 0){
+    client.loop();
+  }
+  if(state_led == 1){
+    tone(D6, NOTE_G4);
+    delay(100);
+    tone(D6, 0);
+    pretime = millis();
+    while(true){
+      digitalWrite(D0, 0);
+      delay(1);
+      thistime = millis();
+      if(thistime-pretime >= 3000){
+        digitalWrite(D0, 1);
+        client.publish("test_input", "0");
+        break;
+      }
+      else if(digitalRead(D5) == 1){
+        digitalWrite(D0, 1);
+        tone(D6, NOTE_A4);
+        delay(100);
+        tone(D6, 0);
+        delay(100);
+        tone(D6, NOTE_A4);
+        delay(100);
+        tone(D6, 0);
+        client.publish("test_input", "1");
+        Serial.print("---------> Hit");
+        break;
+      }
+    }
+  }
+
+  else if(state_led == 2){
+    tone(D6, NOTE_G4);
+    delay(100);
+    tone(D6, 0);
+    pretime = millis();
+    while(true){
+      digitalWrite(D1, 0);
+      delay(1);
+      thistime = millis();
+      if(thistime-pretime >= 1000){
+        digitalWrite(D1, 1);
+        client.publish("test_input", "0");
+        break;
+      }
+      else if(digitalRead(D5) == 1){
+        digitalWrite(D1, 1);
+        tone(D6, NOTE_A4);
+        delay(100);
+        tone(D6, 0);
+        delay(100);
+        tone(D6, NOTE_A4);
+        delay(100);
+        tone(D6, 0);
+        client.publish("test_input", "2");
+        Serial.print("---------> Hit");
+        break;
+      }
+    }
+  }
 }
 
 void Gameplay(){
@@ -231,9 +291,9 @@ void Gameplay(){
    while(1){
     delay(1);
     thistime  = millis();
-    Serial.print(thistime-pretime);
-    Serial.print(" : ");
-    Serial.println(Time);
+//    Serial.print(thistime-pretime);
+//    Serial.print(" : ");
+//    Serial.println(Time);
     if(thistime-pretime>=Time){
       digitalWrite(D0, 1);
       client.publish("test_input", "-1");
@@ -267,9 +327,9 @@ void Gameplay2(){
    while(1){
     delay(1);
     thistime  = millis();
-    Serial.print(thistime-pretime);
-    Serial.print(" : ");
-    Serial.println(Time);
+//    Serial.print(thistime-pretime);
+//    Serial.print(" : ");
+//    Serial.println(Time);
     if(thistime-pretime>=Time){
       digitalWrite(D1, 1);
       client.publish("test_input", "-1");
