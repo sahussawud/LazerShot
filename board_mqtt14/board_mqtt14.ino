@@ -199,6 +199,9 @@ void loop() {
       else if(state_led == 2){
         Gameplay2();
       }
+      if(bonus == 1)&&(state_led==2){
+        Gameplay3();
+      }
   }
   if(index_ == 99){
    tone(D6, NOTE_G4);
@@ -285,6 +288,43 @@ void Gameplay2(){
    state_led = 0;
    Time = 0;
 }
+
+void Gameplay3(){
+   tone(D6, NOTE_G4);
+   delay(100);
+   tone(D6, 0);
+   digitalWrite(D1, 0);
+   pretime = millis();
+   while(1){
+    delay(1);
+    thistime  = millis();
+    Serial.print(thistime-pretime);
+    Serial.print(" : ");
+    Serial.println(Time);
+    if(thistime-pretime>=Time){
+      digitalWrite(D1, 1);
+      client.publish("test_input", "0");
+      break;
+    }
+    else if(digitalRead(D5)==1){
+      Serial.println("Hit");
+      digitalWrite(D1, 1);
+        tone(D6, NOTE_A4);
+        delay(100);
+        tone(D6, 0);
+        delay(100);
+        tone(D6, NOTE_A4);
+        delay(100);
+        tone(D6, 0);
+      client.publish("test_input", "2");
+      break;
+    }
+   }
+   index_ = 0;
+   state_led = 0;
+   Time = 0;
+}
+
 
 void spilt(String txt){
   String txt2, txt3, txt4;
