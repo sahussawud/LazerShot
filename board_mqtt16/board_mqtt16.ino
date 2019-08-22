@@ -195,7 +195,7 @@ void loop() {
         game(1);
       }
       else if((bonus==1)&&(state_led == 2)){
-        gamebonus();
+        game_bonus();
       }
       else if(state_led == 2){
         game(2);
@@ -203,15 +203,27 @@ void loop() {
   }
   else if(Time == 9999){
     bonus = 0;
+    Serial.println("End Bonus");
+    digitalWrite(D2, 0);
+    tone(D6, NOTE_G4);
+    delay(2000);
+    digitalWrite(D2, 1);
+    tone(D6, 0);
+    index_ = 0;
+    state_led = 0;
+    Time = 0;
   }
   else if(index_ == 99){           //<-----------------------Bonus time mode
     Serial.println("Start Bonus");
     digitalWrite(D0, 0);
     tone(D6, NOTE_G4);
-    delay(1000);
+    delay(2000);
     digitalWrite(D0, 1);
     tone(D6, 0);
     bonus = 1;
+    index_ = 0;
+    state_led = 0;
+    Time = 0;
   }
 }
 
