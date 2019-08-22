@@ -154,7 +154,7 @@ void reconnect() {
     if (client.connect(clientId.c_str())) {
       Serial.println("connected");
       // Once connected, publish an announcement...
-      client.publish("test_input", "connected_16"); //<------------------- topic publish
+      client.publish("test_input", "connected_5"); //<------------------- topic publish
       // ... and resubscribe
       client.subscribe("test_output"); //<--------------------- topic subscribe
     } else {
@@ -188,8 +188,8 @@ void loop() {
     reconnect();
   }
   client.loop();
-  if(index_ == 16){               //<-----------------------Normal mode
-      Serial.println("Start Index 16");
+  if(index_ == 5){               //<-----------------------Normal mode
+      Serial.println("Start Index 5");
       if(state_led == 1){
         game(1);
       }
@@ -203,11 +203,19 @@ void loop() {
     tone(D6, NOTE_G4);
     delay(2000);
     while(Time != 9999){
-      bonus();
-      Serial.println("End loop bonus");
-      index_ = 0;
-      state_led = 0;
+      digitalWrite(D0, 1);
+      tone(D6, 0);
+      client.loop();
+      if(index_ == 5){            //--------------------------index bonus    
+        bonus();
+        Serial.println("End loop bonus");
+        index_ = 0;
+        state_led = 0;
+        Time = 0;
+      }
     }
+    digitalWrite(D2, 0);
+    delay(1000);
     Serial.println("End Bonus");
   }
   index_ = 0;
@@ -217,8 +225,8 @@ void loop() {
 
 void bonus(){
   Serial.println("Bonus");
-  digitalWrite(D0, 1);
-  tone(D6, 0);
+  //digitalWrite(D0, 1);
+  //tone(D6, 0);
   while(state_led == 0){
     client.loop();
   }
