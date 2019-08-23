@@ -186,25 +186,27 @@ void setup() {
 }
 
 void loop() {
+  int i = 1, num;
   if (!client.connected()) {
     reconnect();
   }
   client.loop();
-  if(index_ == 1){
+  if(num == 1){
     Serial.println("index 1");
     digitalWrite(D0, 1);
     game();
   }
-  else if(index_ == 2){
+  else if(num == 2){
     Serial.println("index 2");
     digitalWrite(D1, 1);
     game();
   }
-  else if(index_ == 3){
+  else if(num == 0){
     Serial.println("index 3");
     digitalWrite(D2, 1);
     game();
   }
+  num = i%3;
 }
 
 void game(){
@@ -215,7 +217,7 @@ void game(){
   while(true){
     delay(1);
     thistime = millis();
-    if(thistime-pretime >= Time){
+    if(thistime-pretime >= 1500){
       setzero();
       client.publish("hall_input", "-1");
       break;
