@@ -154,7 +154,7 @@ void reconnect() {
     if (client.connect(clientId.c_str())) {
       Serial.println("connected");
       // Once connected, publish an announcement...
-      client.publish("test_input", "connected_4"); //<------------------- topic publish
+      client.publish("test_input", "connected_12"); //<------------------- topic publish
       // ... and resubscribe
       client.subscribe("test_output"); //<--------------------- topic subscribe
     } else {
@@ -189,8 +189,8 @@ void loop() {
     reconnect();
   }
   client.loop();
-  if(index_ == 4){               //<-----------------------Normal mode
-      Serial.println("Start Index 4");
+  if(index_ == 12){               //<-----------------------Normal mode
+      Serial.println("Start Index 12");
       if(state_led == 1){
         game(1);
       }

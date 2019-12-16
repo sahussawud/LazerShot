@@ -40,10 +40,10 @@ void setup() {
  /* ประกาศตัวแปร โดย randomNum คือ ตัวเลขที่จะสุ่ม i สำหรับ for loop score เอาไว้เก็บคะแนน Time คือเก็บค่าให้ไฟค้างไว้เป็นจำนวนรอบ
  timeshoot คือเวลาที่ค้างไว้ต่อ1รอบTime timechange คือเวลารอที่จะเปลี่ยนสุมครั้งถัดไป 
  stax เอาไว้เก็บไฟที่โดนยิง life พลังชีวิตผู้เล่น order ลำดับที่บอร์ดตัวลูกจะทำงาน counter ตัวนับว่าถึงstateไหนแล้ว */
-int randomNum, i=0, score=0;
-int timeshoot[6]={10, 8, 5}, timechange[6]={1200, 700, 200};
-int stax, life;
-int order, order2, order3, counter;
+//int randomNum, i=0, score=0;
+//int timeshoot[6]={10, 8, 5}, timechange[6]={1200, 700, 200};
+//int stax, life;
+//int order, order2, order3, counter;
 
 void loop() {
   // set value
