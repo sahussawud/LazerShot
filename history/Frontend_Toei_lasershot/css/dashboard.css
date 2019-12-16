@@ -1,0 +1,215 @@
+/* profiles */
+@import url('https://fonts.googleapis.com/css?family=Chakra+Petch&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,700");
+@import url('https://fonts.googleapis.com/css?family=Staatliches');
+
+body {
+  height: auto;
+  width: auto;
+  font-family: 'Staatliches', cursive;
+  background-image: linear-gradient(to bottom right, #ff9eaa 0% 65%, #e860ff 95% 100%);
+  background-image: linear-gradient(to bottom right,#322829 0% 65%, #234fcb 95% 100%); ;
+  background-position: center;
+  background-attachment: fixed;
+  margin: 0;
+  padding: 2rem 0;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+}
+
+/* background */
+@keyframes move-twink-back {
+  from {background-position:0 0;}
+  to {background-position:-10000px 5000px;}
+}
+@-webkit-keyframes move-twink-back {
+  from {background-position:0 0;}
+  to {background-position:-10000px 5000px;}
+}
+@-moz-keyframes move-twink-back {
+  from {background-position:0 0;}
+  to {background-position:-10000px 5000px;}
+}
+@-ms-keyframes move-twink-back {
+  from {background-position:0 0;}
+  to {background-position:-10000px 5000px;}
+}
+
+.stars, .twinkling{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  width:100%;
+  height:100%;
+  display:block;
+}
+
+.stars {
+  background:#000 url(http://www.script-tutorials.com/demos/360/images/stars.png) repeat top center;
+  width:100%;
+  height:100%;
+  z-index:-2;
+}
+
+.twinkling{
+  background:transparent url(http://www.script-tutorials.com/demos/360/images/twinkling.png) repeat top center;
+  width:100%;
+  height:100%;
+  z-index:-1;
+
+  -moz-animation:move-twink-back 200s linear infinite;
+  -ms-animation:move-twink-back 200s linear infinite;
+  -o-animation:move-twink-back 200s linear infinite;
+  -webkit-animation:move-twink-back 200s linear infinite;
+  animation:move-twink-back 200s linear infinite;
+}
+
+/* card */
+.name{
+  font-family: 'Chakra Petch', sans-serif;
+}
+
+.line {
+  background: #302627;
+  width: 80%;
+  height: 2px;
+  margin: 5px auto -3px;
+}
+
+.line1 {
+  background: #302627;
+  width: 80%;
+  height: 1px;
+  margin: 3px auto -3px;
+}
+
+.card {
+  background-color: #fff;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 2rem;
+  box-shadow: 0px 1rem 1.5rem rgba(0,0,0,0.5);
+}
+
+img {
+  background-color: #fff;
+  width: 9rem;
+  height: 9rem;
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.3);
+  border-radius: 50%;
+  transition: transform 200ms cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+/* leaderboard */
+.topic{
+  color: #404040;
+}
+
+.stage{
+  font-size: 25px;
+}
+
+/* time */
+.btn{
+  width: 80px;
+  height: 40px;
+  border:#000 3px solid;
+  background:#fff;
+  border-radius:5px;
+  padding:3px;
+  margin:0 5px;
+  cursor:pointer;
+}
+.timer { 
+  font-size: 60px; 
+}
+
+/* progress-bar */
+.r-progress-bar > circle {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.25s ease;
+  stroke: #ff0000;
+  stroke-width: 20px;
+}
+
+.r-progress-bar > .bar {
+  stroke: #607d8b;
+  stroke-linecap: round;
+}
+
+.probar > .btn {
+  display: inline-block;
+  padding: 3px;
+  height: 25px;
+  line-height: 23px;
+  font-size: 11px;
+  text-transform: uppercase;
+  background: transparent;
+  border:#000 3px solid;
+  background:#fff;
+  border-radius:5px;
+  transition: 0.3s all;
+  outline: 0;
+  cursor: pointer;
+  margin: 0.5px;
+}
+
+.btn:hover,
+.btn:focus {
+  color: #607d8b;
+  border-color: #607d8b;
+}
+
+/* YOLO */ 
+.some-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.some-wrapper > .inner-wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  transform: translateY(13.5%);
+}
+
+.some-wrapper .text {
+  font-weight: 300;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.score{
+  font-size: 50px; 
+}
+
+/* back to home */
+.follow-btn button {
+  color: white;
+  font: inherit;
+  font-weight: bold;
+  background-color: #302627;
+  width: 80%;
+  border: none;
+  padding: 1rem;
+  outline: none;
+  box-sizing: border-box;
+  border-radius: 1.5rem/50%;
+  transition: background-color 100ms ease-in-out, transform 200ms cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+.follow-btn button:hover {
+  background-color: #25306b;
+  transform: scale(1.1);
+}
+.follow-btn button:active {
+  background-color: #767fb4;
+  transform: scale(1);
+}
