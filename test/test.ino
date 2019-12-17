@@ -23,9 +23,13 @@
 
 // Update these with values suitable for your network.
 
-const char* ssid = "Lab330";
-const char* password = "33333330";
+const char* ssid = "Sawadee";
+const char* password = "Thip8931";
 const char* mqtt_server = "broker.mqttdashboard.com";
+String message;
+char txt[10];
+char *token;
+char *myString[3];
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -61,20 +65,14 @@ void callback(char* topic, byte* payload, unsigned int length) {
   Serial.print("Message arrived [");
   Serial.print(topic);
   Serial.print("] ");
-  for (int i = 0; i < length; i++) {
-    Serial.print((char)payload[i]);
+  
+  int num = 0;
+  while (num < length) {                //collect char from MQTT to string valiable->(message)
+    message += (char)payload[num++];
   }
-  Serial.println();
-
-  // Switch on the LED if an 1 was received as first character
-  if ((char)payload[0] == '1') {
-    digitalWrite(BUILTIN_LED, LOW);   // Turn the LED on (Note that LOW is the voltage level
-    // but actually the LED is on; this is because
-    // it is active low on the ESP-01)
-  } else {
-    digitalWrite(BUILTIN_LED, HIGH);  // Turn the LED off by making the voltage HIGH
-  }
-
+  Serial.println(message);
+  split();
+  message = "";                         //reset message
 }
 
 void reconnect() {
@@ -82,15 +80,15 @@ void reconnect() {
   while (!client.connected()) {
     Serial.print("Attempting MQTT connection...");
     // Create a random client ID
-    String clientId = "ESP8266Client-";
+    String clientId = "clientId-mWyCpeTR3W";
     clientId += String(random(0xffff), HEX);
     // Attempt to connect
     if (client.connect(clientId.c_str())) {
       Serial.println("connected");
       // Once connected, publish an announcement...
-      client.publish("OutTopic", "hello world");
+      client.publish("OutTopic", "hello world");  //-----------------------topic of publish
       // ... and resubscribe
-      client.subscribe("InTopic");
+      client.subscribe("InTopic");  //-------------------------------------topic of subscribe
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
@@ -107,6 +105,34 @@ void setup() {
   setup_wifi();
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
+}
+
+void split(){
+  //print message before split
+  Serial.println();
+  Serial.print("Starting : ");
+  Serial.println(message);
+  Serial.println();
+  
+  message.toCharArray(txt, 10);    //convert string to char array
+  token = strtok(txt, ":");        //split string from ':' the first time
+  myString[0] = token;             //store string after split to myString[]
+  
+  int num = 1;
+  while(token != NULL){           //loop split and store
+    token = strtok(NULL, ":");
+    myString[num] = token;
+    num += 1;
+  }
+
+  //print show result
+  for(int i = 0; i<2; i++){
+    Serial.print("myString[");
+    Serial.print(i);
+    Serial.print("] = ");
+    Serial.println(myString[i]);
+    Serial.println();
+  }
 }
 
 void loop() {
