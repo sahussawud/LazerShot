@@ -1,15 +1,15 @@
-#include <ESP8266WiFi.h>
+OO#include <ESP8266WiFi.h>
 #include <FirebaseArduino.h>
 
 // Set these to run example.
 #define FIREBASE_HOST "Test-project.firebaseio.com"
 #define FIREBASE_AUTH "AIzaSyD0w-irpqrf9HKPppaCX-rnKkRV3AdI1eg"
-#define WIFI_SSID "DOUBLE_R0"
+#define WIFI_SSID "iPhone 8 ของ พอพล"
 #define WIFI_PASSWORD "Dr20436527"
-Thread* myThread = new Thread();
+//Thread* myThread = new Thread();
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(11520);
   // เชื่อมต่อ WIFI
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("connecting");
@@ -20,7 +20,7 @@ void setup() {
   Serial.println();
   Serial.print("connected: ");
   Serial.println(WiFi.localIP());
-  Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
+//  Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
   pinMode(D3, OUTPUT);
 }
  /* ประกาศตัวแปร โดย randomNum คือ ตัวเลขที่จะสุ่ม i สำหรับ for loop score เอาไว้เก็บคะแนน Time คือเก็บค่าให้ไฟค้างไว้เป็นจำนวนรอบ
@@ -33,8 +33,8 @@ void loop() {
   // ดึงข้อมูลจาก Firebase
   Board = Firebase.getInt("Board");
   // เช้คว่าค่าที่ส่งมาทาง Board ตรงกับ เลขบอร์ดของตัวเองรึป่าว
-  if(Board==1){
-    Gameplay();  
+  if(Board==1)
+    Gameplay();
     }
   }
 
