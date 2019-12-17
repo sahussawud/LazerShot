@@ -92,8 +92,8 @@
 #define NOTE_D8  4699
 #define NOTE_DS8 4978
 
-const char* ssid = "lab_startup";
-const char* password = "56841725";
+const char* ssid = "la330";
+const char* password = "33333330";
 const char* mqtt_server = "broker.mqttdashboard.com";
 
 WiFiClient espClient;
