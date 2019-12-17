@@ -3,7 +3,7 @@
 
 // Update these with values suitable for your network.
 
-const char* ssid = "lab330";
+const char* ssid = "la330";
 const char* password = "33333330";
 const char* mqtt_server = "broker.mqttdashboard.com";
 
