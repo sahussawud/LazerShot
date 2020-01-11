@@ -25,7 +25,7 @@ signupForm.addEventListener('submit', (e) => {
     //sign up the user
     if (password == checkPassword) {
         auth.createUserWithEmailAndPassword(email, password).then(cred => {
-            //console.log(cred)
+            console.log(cred.user.uid)
             signupForm.reset();
             $('#modal-1').modal('hide');
             cred.user.updateProfile({
@@ -37,11 +37,12 @@ signupForm.addEventListener('submit', (e) => {
             });
 
             console.log(cred.user);
-            db.collection('Users').add({
+            db.collection('Users').doc(cred.user.uid).set({
                 Name: name,
                 Email: email,
                 Password: password
             });
+            
         });
     } else {
         alert("Sign up fail");

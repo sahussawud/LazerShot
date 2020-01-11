@@ -14,6 +14,9 @@ auth.onAuthStateChanged(user => {
         document.getElementById('email').innerHTML = email;
         document.getElementById('name').innerHTML = name;
         document.title = name;
+        db.collection('Users').doc(uid).get().then(function(doc){
+            console.log(doc.data());
+        });
     }
 });
 
@@ -30,22 +33,18 @@ function delAccount(){
     alert("Delete");
     var user = firebase.auth().currentUser;
     console.log(user);
-    db.collection('Users').get().then((snapshot)=>{
-        snapshot.forEach(doc=>{
-            if(user.displayName == doc.data().Name){
-                console.log(doc.id, " : id => ", doc.data().Name);
-                db.collection('Users').doc(doc.id).delete();
-                console.log("Delete DB successfull");
-            }
-        });
-    }); 
+
+    
+
     user.delete().then(function() {
-        console.log("Delete account successfull");
-        window.location = "index.html";
+        db.collection('Users').doc(uid).get().then(function(doc){
+            db.collection('Users').doc(doc.id).delete();
+        });
     }).catch(function(error) {
         console.log(error);
     });
+
     
-    
+    window.location = "index.html";
 }
 
