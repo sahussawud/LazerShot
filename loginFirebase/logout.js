@@ -137,4 +137,3 @@ function drawLogScales(arrayScore) {
 //         console.log(error);
 //     });
 // }
-
