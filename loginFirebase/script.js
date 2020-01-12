@@ -40,9 +40,11 @@ signupForm.addEventListener('submit', (e) => {
             db.collection('Users').doc(cred.user.uid).set({
                 Name: name,
                 Email: email,
-                Password: password
+                Password: password,
+                score: [],
+                High_score: 0
             });
-            
+
         });
     } else {
         alert("Sign up fail");
@@ -75,10 +77,15 @@ loginForm.addEventListener('submit', (e) => {
 
 function forgetpass() {
     var emailAddress = document.querySelector('#login-form').email.value;
-    auth.sendPasswordResetEmail(emailAddress).then(function () {
-        console.log(emailAddress);
-    }).catch(function (error) {
-        console.log(error);
-    });
-    
+    if (emailAddress == "") {
+        alert("Please enter E-mail.");
+    } else {
+        auth.sendPasswordResetEmail(emailAddress).then(function () {
+            console.log(emailAddress);
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
+
+
 }
