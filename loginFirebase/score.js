@@ -1,5 +1,9 @@
 var data = [];
 var user_name;
+var score;
+var highScore;
+var history;
+var txt = "";
 auth.onAuthStateChanged(user => {
     //console.log(user);
     if (user) {
@@ -16,10 +20,29 @@ auth.onAuthStateChanged(user => {
         console.log("  Photo URL: " + photoUrl);
         document.getElementById('name').innerHTML = name;
         document.title = name;
+
         db.collection('Users').doc(uid).get().then(function(doc){
-            console.log(doc.data());
+            console.log(doc.data().score);
+            score = doc.data().score;
+            highScore = doc.data().High_score;
+            txt = "";
+            var i = 0;
+            var count = score.length;
+            while (1) {
+                if (count == 0 || i == 5){
+                    break;
+                } else {
+                    txt += "<div>"+(i+1)+". "+score[count-1]+"</div>";
+                    i++;
+                    count--;
+                }
+            }
+            document.getElementById('history').innerHTML = txt;
+            // console.log("++++++++++++++++"+highScore);
         });
-        var txt = "";
+
+
+        txt = "";
         // console.log("admin");
         txt += '<table class="table table-hover mt-5" id="table0">';
         txt += '<thead>';
@@ -38,7 +61,6 @@ auth.onAuthStateChanged(user => {
         db.collection('Users').get().then((snapshot)=>{
             snapshot.forEach(doc=>{
                 var dic = {Name:doc.data().Name, Score:doc.data().High_score, Time:"101010", ID:doc.id};
-
                 data.push(dic);
                 console.log(data);
                 if (data.length == snapshot.size){

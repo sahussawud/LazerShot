@@ -5,11 +5,12 @@ client.onConnectionLost = onConnectionLost;
 client.onMessageArrived = onMessageArrived;
 
 client.connect({onSuccess:onConnect});
-var score = 0;
+
 var topic_sup = "test_input_ong";
 var topic_pub = "test_output_ong";
 var mq_to_msg;
 var state_call = 0;
+var num = 0;
 function onConnect() {
     console.log("onConnect");
     client.subscribe(topic_sup);
@@ -39,7 +40,7 @@ function send(msg){
 function onConnectionLost(responseObject) {
     if (responseObject.errorCode !== 0) {
         console.log("onConnectionLost:"+responseObject.errorMessage);
-        setTimeout(function(){window.location.reload(true);}, 5000);
+        // setTimeout(function(){window.location.reload(true);}, 5000);
     }
 }
 
@@ -48,11 +49,38 @@ function onMessageArrived(message) {
     console.log("onMessageArrived:"+mq_to_msg);
     if (mq_to_msg == "F") {
 
+        var update = db.collection('Users').doc(uid);
+        const testScore = Number(document.getElementById(name).innerHTML);
+        update.onSnapshot(function (doc) {
+            if (score.length == 0) {
+                update.update({
+                    High_score: testScore
+                });
+            } else {
+                if (doc.data().High_score < testScore) {
+                    update.update({
+                        High_score: testScore
+                    });
+                }
+            }
+        });
+
+        score.push(num);
+
+        update.update({
+            score: score
+        });
+
     }
-    else{
-        num = Number(mq_to_msg);
-        document.getElementById(name).innerHTML = Number(document.getElementById(name).innerHTML)+num;
-        updateScore(name, Number(document.getElementById(name).innerHTML));
+    else {
+        num += Number(mq_to_msg);
+        console.log(num+" "+highScore);
+        document.getElementById('score_board').innerHTML = num
+        if (num > highScore){
+            document.getElementById(name).innerHTML = num;
+            updateScore(name, Number(document.getElementById(name).innerHTML));
+        }
+
     }
 
 }

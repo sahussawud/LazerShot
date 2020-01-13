@@ -13,9 +13,12 @@
 
 <body>
     <div class="container">
-        <h1>Scoreboard</h1>
+        <h1>Score</h1>
         <h3 id="name"></h3>
+        <h3 id="score_board">0</h3>
+        <h3 id="history"></h3>
         <button type="button" class="btn btn-primary" onclick="logout()">Logout</button>
+        <button type="button" class="btn btn-primary" onclick="window.location = 'user.html'">User</button>
     </div>
     <div id="out"></div>
 
@@ -55,7 +58,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-    <script src="rank.js"></script>
+    <script src="score.js"></script>
     <script src="paho.javascript-1.0.3/paho-mqtt.js"></script>
     <script src="mqtt_test.js"></script>
 </body>
