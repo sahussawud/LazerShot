@@ -47,10 +47,10 @@ function onConnectionLost(responseObject) {
 function onMessageArrived(message) {
     mq_to_msg = message.payloadString;
     console.log("onMessageArrived:"+mq_to_msg);
-    if (mq_to_msg == "F") {
-
+    // if (mq_to_msg == "F") {
+        num = Number(mq_to_msg);
         var update = db.collection('Users').doc(uid);
-        const testScore = Number(document.getElementById(name).innerHTML);
+        const testScore = num;
         update.onSnapshot(function (doc) {
             if (score.length == 0) {
                 update.update({
@@ -71,17 +71,17 @@ function onMessageArrived(message) {
             score: score
         });
 
-    }
-    else {
-        num += Number(mq_to_msg);
-        console.log(num+" "+highScore);
-        document.getElementById('score_board').innerHTML = num
-        if (num > highScore){
-            document.getElementById(name).innerHTML = num;
-            updateScore(name, Number(document.getElementById(name).innerHTML));
-        }
+    // }
+    // else {
+        // num += Number(mq_to_msg);
+        // console.log(num+" "+highScore);
+        // document.getElementById('score_board').innerHTML = num
+        // if (num > highScore){
+            // document.getElementById(name).innerHTML = num;
+            // updateScore(name, Number(document.getElementById(name).innerHTML));
+        // }
 
-    }
+    // }
 
 }
 

@@ -21,43 +21,27 @@ auth.onAuthStateChanged(user => {
         document.getElementById('name').innerHTML = name;
         document.title = name;
 
-        db.collection('Users').doc(uid).get().then(function(doc){
-            console.log(doc.data().score);
-            score = doc.data().score;
-            highScore = doc.data().High_score;
-            txt = "";
-            var i = 0;
-            var count = score.length;
-            // while (1) {
-            //     if (count == 0 || i == 5){
-            //         break;
-            //     } else {
-            //         txt += "<div>"+(i+1)+". "+score[count-1]+"</div>";
-            //         i++;
-            //         count--;
-            //     }
-            // }
-            // document.getElementById('history').innerHTML = txt;
-        });
-
-
-        txt = "";
-        // console.log("admin");
-        txt += '<table class="table table-hover mt-5" id="table0">';
-        txt += '<thead>';
-        txt += '<tr>';
-        txt += '<th scope="col">No.</th>';
-        txt += '<th scope="col">Name</th>';
-        txt += '<th scope="col">Score</th>';
-        // txt += '<th scope="col">Time</th>';
-        // txt += '<th scope="col">DEL</th>';
-        txt += '</tr>';
-        txt += '</thead>';
-        txt += '<tbody></tbody>';
-        txt += '</table>';
-        document.getElementById("out").innerHTML = txt;
+        // db.collection('Users').doc(uid).get().then(function(doc){
+        //     console.log(doc.data().score);
+        //     score = doc.data().score;
+        //     highScore = doc.data().High_score;
+        //     txt = "";
+        //     var i = 0;
+        //     var count = score.length;
+        //     // while (1) {
+        //     //     if (count == 0 || i == 5){
+        //     //         break;
+        //     //     } else {
+        //     //         txt += "<div>"+(i+1)+". "+score[count-1]+"</div>";
+        //     //         i++;
+        //     //         count--;
+        //     //     }
+        //     // }
+        //     // document.getElementById('history').innerHTML = txt;
+        // });
 
         db.collection('Users').get().then((snapshot)=>{
+            document.getElementById('out').innerHTML = "";
             snapshot.forEach(doc=>{
                 var dic = {Name:doc.data().Name, Score:doc.data().High_score, Time:"101010", ID:doc.id};
                 data.push(dic);

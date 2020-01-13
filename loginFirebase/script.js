@@ -1,10 +1,23 @@
 // get data
+var dic = {};
 const db = firebase.firestore();
+var i=0;
 db.collection('Users').get().then(snapshot => {
+    var size = snapshot.size;
+    // console.log(size);
     snapshot.forEach(doc => {
-        console.log(doc.data());
+        dic[doc.data().Name] = doc.data().Email;
+        i++;
+        if (i == size){
+            document.getElementById('add_button').innerHTML = '<button type="submit" class="login100-form-btn"> Sign In </button>';
+        }
     });
 });
+// db.collection('Users').get().then(snapshot => {
+//     snapshot.forEach(doc => {
+//         console.log(doc.data());
+//     });
+// });
 
 // auth.onAuthStateChanged(user => {
 //     console.log(user);
@@ -58,7 +71,11 @@ loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
     //get user info
-    const email = loginForm['login-Email'].value;
+    if (dic[loginForm['login-Email'].value]){
+        var email = dic[loginForm['login-Email'].value];
+    }
+    else
+        alert("Login fail");
     const password = loginForm['login-Password'].value;
 
     auth.signInWithEmailAndPassword(email, password).then(cred => {
@@ -69,7 +86,7 @@ loginForm.addEventListener('submit', (e) => {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
-        console.log(errorMessage);
+        // console.log(errorMessage);
         alert("Login fail");
         loginForm.reset();
     });

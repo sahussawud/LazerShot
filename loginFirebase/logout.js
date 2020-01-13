@@ -13,13 +13,13 @@ auth.onAuthStateChanged(user => {
         console.log("  Name: " + name);
         console.log("  Email: " + email);
         console.log("  Photo URL: " + photoUrl);
-        document.getElementById('email').innerHTML = email;
+        // document.getElementById('email').innerHTML = email;
         document.getElementById('name').innerHTML = name;
         document.title = name;
         id = uid
         db.collection('Users').doc(id).onSnapshot(function (doc) {
             if (doc.data().High_score != 0) {
-                document.getElementById('high-score').innerHTML = "Your high score : " + doc.data().High_score;
+                // document.getElementById('high-score').innerHTML = "Your high score : " + doc.data().High_score;
             }
         });
         showGraph();
@@ -116,7 +116,7 @@ function drawLogScales(arrayScore) {
         },
         colors: ['#a52714', '#097138']
     };
-
+    document.getElementById('chart_div').innerHTML = "";
     var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
     chart.draw(data, options);
 }
