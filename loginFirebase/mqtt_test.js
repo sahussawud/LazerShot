@@ -6,11 +6,35 @@ client.onMessageArrived = onMessageArrived;
 
 client.connect({onSuccess:onConnect});
 
-var topic_sup = "test_input_ong";
+var topic_sup = "lazershot/Score";
 var topic_pub = "test_output_ong";
 var mq_to_msg;
 var state_call = 0;
 var num = 0;
+
+
+auth.onAuthStateChanged(user => {
+    //console.log(user);
+    if (user) {
+        name = user.displayName;
+        email = user.email;
+        photoUrl = user.photoURL;
+        emailVerified = user.emailVerified;
+        uid = user.uid;
+        user_name = name;
+        db.collection('Users').doc(uid).get().then(function(doc){
+            console.log(doc.data().score);
+            score = doc.data().score;
+            highScore = doc.data().High_score;
+            txt = "";
+            var i = 0;
+            var count = score.length;
+        });
+    }
+});
+
+
+
 function onConnect() {
     console.log("onConnect");
     client.subscribe(topic_sup);
@@ -70,7 +94,7 @@ function onMessageArrived(message) {
         update.update({
             score: score
         });
-
+        setTimeout(function(){window.location = 'score.html';}, 10000);
     // }
     // else {
         // num += Number(mq_to_msg);
@@ -84,6 +108,7 @@ function onMessageArrived(message) {
     // }
 
 }
+
 
 function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);

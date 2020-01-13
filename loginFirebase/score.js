@@ -4,41 +4,41 @@ var score;
 var highScore;
 var history;
 var txt = "";
-auth.onAuthStateChanged(user => {
-    //console.log(user);
-    if (user) {
-        name = user.displayName;
-        email = user.email;
-        photoUrl = user.photoURL;
-        emailVerified = user.emailVerified;
-        uid = user.uid;
-        user_name = name;
-        console.log("Sign-in provider: " + emailVerified);
-        console.log("  Provider-specific UID: " + uid);
-        console.log("  Name: " + name);
-        console.log("  Email: " + email);
-        console.log("  Photo URL: " + photoUrl);
+// auth.onAuthStateChanged(user => {
+//     //console.log(user);
+//     if (user) {
+//         name = user.displayName;
+//         email = user.email;
+//         photoUrl = user.photoURL;
+//         emailVerified = user.emailVerified;
+//         uid = user.uid;
+//         user_name = name;
+//         console.log("Sign-in provider: " + emailVerified);
+//         console.log("  Provider-specific UID: " + uid);
+//         console.log("  Name: " + name);
+//         console.log("  Email: " + email);
+//         console.log("  Photo URL: " + photoUrl);
         document.getElementById('name').innerHTML = name;
         document.title = name;
 
-        // db.collection('Users').doc(uid).get().then(function(doc){
-        //     console.log(doc.data().score);
-        //     score = doc.data().score;
-        //     highScore = doc.data().High_score;
-        //     txt = "";
-        //     var i = 0;
-        //     var count = score.length;
-        //     // while (1) {
-        //     //     if (count == 0 || i == 5){
-        //     //         break;
-        //     //     } else {
-        //     //         txt += "<div>"+(i+1)+". "+score[count-1]+"</div>";
-        //     //         i++;
-        //     //         count--;
-        //     //     }
-        //     // }
-        //     // document.getElementById('history').innerHTML = txt;
-        // });
+//         db.collection('Users').doc(uid).get().then(function(doc){
+//             console.log(doc.data().score);
+//             score = doc.data().score;
+//             highScore = doc.data().High_score;
+//             txt = "";
+//             var i = 0;
+//             var count = score.length;
+//             // while (1) {
+//             //     if (count == 0 || i == 5){
+//             //         break;
+//             //     } else {
+//             //         txt += "<div>"+(i+1)+". "+score[count-1]+"</div>";
+//             //         i++;
+//             //         count--;
+//             //     }
+//             // }
+//             // document.getElementById('history').innerHTML = txt;
+//         });
 
         db.collection('Users').get().then((snapshot)=>{
             document.getElementById('out').innerHTML = "";
@@ -61,8 +61,8 @@ auth.onAuthStateChanged(user => {
         // var lis = [name, "999", "10_10_20:10:30", "5yT1mrdfe7TRnNQ3pnREXxL3wNz1"];
         // createTable(lis);
 
-    }
-});
+//     }
+// });
 
 function createTable (lis){
     var name = lis[0];
