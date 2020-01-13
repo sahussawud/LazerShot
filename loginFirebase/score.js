@@ -28,17 +28,16 @@ auth.onAuthStateChanged(user => {
             txt = "";
             var i = 0;
             var count = score.length;
-            while (1) {
-                if (count == 0 || i == 5){
-                    break;
-                } else {
-                    txt += "<div>"+(i+1)+". "+score[count-1]+"</div>";
-                    i++;
-                    count--;
-                }
-            }
-            document.getElementById('history').innerHTML = txt;
-            // console.log("++++++++++++++++"+highScore);
+            // while (1) {
+            //     if (count == 0 || i == 5){
+            //         break;
+            //     } else {
+            //         txt += "<div>"+(i+1)+". "+score[count-1]+"</div>";
+            //         i++;
+            //         count--;
+            //     }
+            // }
+            // document.getElementById('history').innerHTML = txt;
         });
 
 
